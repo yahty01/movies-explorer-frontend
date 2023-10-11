@@ -1,17 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
+import "./index.css";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));// Создаём корневой элемент, нашего приложения.
+
+root.render( // Рендерим наше приложение в корневой элемент.
+  <React.StrictMode>// Включаем строгий режим (StrictMode) для проверки потенциальных проблем в приложении.
+    <BrowserRouter>// Оборачиваем наше приложение в компонент BrowserRouter для доступа к функциональности роутинга.
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
