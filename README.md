@@ -1,2 +1,3 @@
-# movies-explorer-frontend 
-Hi !!! Level-2
+# Movies Explorer
+
+Выбранный шаблон: **dark-5**

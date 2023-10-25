@@ -1,0 +1,17 @@
+.logo {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 38px;
+  width: 38px;
+  background-image: url('../../images/logo.svg');
+  background-size: 38px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

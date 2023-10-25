@@ -1,0 +1,95 @@
+@media screen and (max-width: 1200px) {
+  .portfolio {
+    padding-bottom: 75px;
+
+    &__site-link {
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -1.12px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .portfolio {
+    padding-bottom: 58px;
+
+    &__heading {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    &__list {
+      margin-top: 20px;
+    }
+
+    &__site-link {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.72px;
+      line-height: 28px;
+
+      &::before {
+        font-size: 18px;
+        top: 5px;
+        right: 0;
+      }
+    }
+  }
+}
+
+.portfolio {
+  background-color: #202020;
+  padding: 0 0 112px;
+
+  &__heading {
+    color: #8b8b8b;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 30px 0 0;
+    padding: 0;
+
+    &-item {
+      border-bottom: 1px #424242 solid;
+      margin: 0;
+      padding: 20px 0 19px 0;
+      position: relative;
+      text-align: left;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+
+  &__site-link {
+    color: #fff;
+    display: block;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -1.2px;
+    line-height: 50px;
+
+    &::before {
+      color: #fff;
+      content: '↗';
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 60px;
+      letter-spacing: -1.2px;
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
+  }
+}

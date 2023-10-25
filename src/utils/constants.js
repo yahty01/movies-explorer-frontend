@@ -1,0 +1,1 @@
+export const authPages = ['/movies', '/saved-movies', '/profile'];

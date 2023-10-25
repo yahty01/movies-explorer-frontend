@@ -1,15 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import "./index.css";
+import './index.css';
+import App from './components/App/App';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));// Создаём корневой элемент, нашего приложения.
+// Получаем ссылку на элемент DOM, в который будет рендериться наше приложение
+const rootElement = document.getElementById('root');
 
-root.render( // Рендерим наше приложение в корневой элемент.
-  <React.StrictMode>// Включаем строгий режим (StrictMode) для проверки потенциальных проблем в приложении.
-    <BrowserRouter>// Оборачиваем наше приложение в компонент BrowserRouter для доступа к функциональности роутинга.
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
-);
+// Функция для рендеринга приложения
+function renderApp() {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>,
+  );
+}
+
+
+renderApp();

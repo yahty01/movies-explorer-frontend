@@ -1,0 +1,140 @@
+@import url('../../vendor/fonts/fonts.css');
+
+:root {
+  --font-size-name: 50px;
+  --font-size-occupation: 18px;
+  --font-size-description: 14px;
+  --font-size-github: 14px;
+}
+
+.about-me {
+  padding: 110px 0 100px;
+  color: #fff;
+  background-color: #202020;
+
+  &__personal-container {
+    margin-top: 66px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__personal-info {
+    max-width: 600px;
+    text-align: left;
+  }
+
+  &__personal-name {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-name);
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+  }
+
+  &__personal-occupation {
+    margin: 18px 0 0;
+    padding: 0;
+    font-size: var(--font-size-occupation);
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  &__personal-description {
+    margin: 26px 0 0;
+    padding: 0;
+    font-size: var(--font-size-description);
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  &__personal-github {
+    margin-top: 99px;
+    display: block;
+    color: #fff;
+    font-size: var(--font-size-github);
+    font-weight: 500;
+  }
+
+  &__personal-photo {
+    width: 270px;
+    height: 327px;
+    display: block;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 1200px) {
+    padding: 90px 0;
+
+    &__personal-container {
+      gap: 49px;
+    }
+
+    &__personal-name {
+      font-size: 40px;
+      line-height: 40px;
+      letter-spacing: -1.6px;
+    }
+
+    &__personal-occupation {
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+    }
+
+    &__personal-description {
+      margin-top: 20px;
+      max-width: 364px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+    }
+
+    &__personal-photo {
+      width: 255px;
+      height: 307px;
+    }
+
+    &__personal-github {
+      margin-top: 87px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 70px 0;
+
+    &__personal-container {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+      gap: 40px;
+    }
+
+    &__personal-photo {
+      order: -1;
+      width: 292px;
+      height: 352px;
+    }
+
+    &__personal-name {
+      font-size: 30px;
+      letter-spacing: -1.2px;
+    }
+
+    &__personal-occupation {
+      font-size: 11px;
+      margin-top: 17px;
+    }
+
+    &__personal-description {
+      margin-top: 18px;
+      font-size: 11px;
+    }
+
+    &__personal-github {
+      margin-top: 40px;
+    }
+  }
+}
