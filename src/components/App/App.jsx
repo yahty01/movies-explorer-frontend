@@ -9,6 +9,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import Signout from '../Signout/Signout';
 import NotFound from '../NotFound/NotFound';
 
 // Импорт вспомогательных компонентов и стилей
@@ -24,6 +25,7 @@ function App() {
     { path: '/', element: <Main /> },
     { path: '/signup', element: <Register /> },
     { path: '/signin', element: <Login /> },
+    { path: '/signout', element: <Signout /> },
     { path: '/movies', element: <ProtectedRouteElement element={Movies} loggedIn={loggedIn} /> },
     { path: '/saved-movies', element: <ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} /> },
     { path: '/profile', element: <ProtectedRouteElement element={Profile} loggedIn={loggedIn} /> },

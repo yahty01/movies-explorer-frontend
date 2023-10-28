@@ -1,9 +1,7 @@
-import './SavedMovies.css';
-
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import './SavedMovies.css';
+import './SavedMovies.scss';
 import Footer from '../Footer/Footer';
 import filmData from '../../MovieData/movieData-saved.json';
 

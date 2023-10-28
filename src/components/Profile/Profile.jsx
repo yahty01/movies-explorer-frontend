@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Header from '../Header/Header';
-import './Profile.css';
+import './Profile.scss';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const [name, setName] = useState('Егор');
   const [email, setEmail] = useState('mail@yandex.ru');
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   console.log('рендеринг');
 
@@ -20,6 +22,10 @@ function Profile() {
     setEmail(event.target.value);
   };
 
+  const handleSignoutClick = () => {
+    navigate('/signout');
+  };
+  
   const handleSaveClick = () => {
     console.log('click');
     setIsEditing(false);
@@ -54,7 +60,7 @@ function Profile() {
               <button type='button' className='button profile__link-edit' href='/' onClick={handleEditClick} aria-label='Редактировать профиль'>
                 Редактировать
               </button>
-              <button type='button' className='button profile__link-exit' href='/signout' aria-label='Выйти из аккаунта'>
+              <button type='button' className='button profile__link-exit' onClick={handleSignoutClick} aria-label='Выйти из аккаунта'>
                 Выйти из аккаунта
               </button>
             </>

@@ -15,7 +15,7 @@ function AboutMe() {
             <blockquote className='about-me__personal-description'>
             Я из Москвы, учусь на факультете компьютерной безопасности. Веб-разработка оказалась истинной страстью для меня, внезапно охватившей всю мою жизнь. Я точно вижу себя в будущем как профессионального веб-разработчика, поскольку это то, что действительно заставляет меня просыпаться каждое утро с воодушевлением и с нетерпением ждать нового дня, полного кода.
             </blockquote>
-            <a className='link about-me__personal-github' href='https://github.com/yahty01' target='_blank' rel='noreferrer' arial-label='Перейти на страницу студента в GitHub'>
+            <a className='link about-me__personal-link' href='https://github.com/yahty01' target='_blank' rel='noreferrer' arial-label='Перейти на страницу студента в GitHub'>
               Github
             </a>
           </div>

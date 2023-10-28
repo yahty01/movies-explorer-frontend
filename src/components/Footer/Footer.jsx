@@ -22,7 +22,7 @@ function Footer() {
             </a>
             <a
               className='link footer__link'
-              href='https://github.com/vladdevjs'
+              href='https://github.com/yahty01'
               target='_blank'
               rel='noopener noreferrer'
               aria-label='Перейти на страницу студента в GitHub'
