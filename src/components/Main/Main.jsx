@@ -13,9 +13,7 @@ import Portfolio from '../Portfolio/Portfolio';
 function Main() {
   return (
     <>
-
       <Header />
-
       <main className='main'>
         <Promo />
         <AboutProject />
@@ -23,7 +21,6 @@ function Main() {
         <AboutMe />
         <Portfolio />
       </main>
-      
       <Footer />
     </>
   );

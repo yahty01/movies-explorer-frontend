@@ -17,7 +17,8 @@ function Register() {
               Email:
             </label>
             <input type='email' id='email' name='email' minLength='2' required className='register__field' />
-            <label htmlFor='passwordInput' className='register__label'>
+            {/*passwordInput*/}
+            <label htmlFor='password' className='register__label'> 
               Пароль
             </label>
             <input type='password' id='password' name='password' minLength='8' required className='register__field register__field_error' />

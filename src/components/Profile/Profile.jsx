@@ -49,21 +49,21 @@ function Profile() {
             {isEditing ? <input type='email' name='email' value={email} onChange={handleEmailChange} className='profile__field-email' /> : <span className='email-value'>{email}</span>}
           </div>
           {isEditing ? (
-            <>
-              <span className='profile__error'>При обновлении профиля произошла ошибка.</span>
-              <button type='button' className='profile__button profile__button_disabled' handler={handleSaveClick} aria-label='Сохранить данные'>
-                Сохранить
-              </button>
-            </>
-          ) : (
-            <>
-              <button type='button' className='button profile__link-edit' href='/' onClick={handleEditClick} aria-label='Редактировать профиль'>
-                Редактировать
-              </button>
-              <button type='button' className='button profile__link-exit' onClick={handleSignoutClick} aria-label='Выйти из аккаунта'>
-                Выйти из аккаунта
-              </button>
-            </>
+             <>
+             <span className='profile__error'>При обновлении профиля произошла ошибка.</span>
+             <button type='button' className='profile__button profile__button_disabled' onClick={handleSaveClick} aria-label='Сохранить данные'>
+               Сохранить
+             </button>
+           </>
+         ) : (
+           <>
+             <span className='button profile__link-edit' onClick={handleEditClick} aria-label='Редактировать профиль'>
+               Редактировать
+             </span>
+             <button type='button' className='button profile__link-exit' onClick={handleSignoutClick} aria-label='Выйти из аккаунта'>
+               Выйти из аккаунта
+             </button>
+           </>
           )}
         </div>
       </section>

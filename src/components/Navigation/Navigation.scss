@@ -112,9 +112,9 @@
     &_active .navigation__burger-close {
       position: absolute;
       display: block;
-      top: 22px;
-      right: 22px;
-      height: 22px;
+      top: 23px;
+      right: 27px;
+      height: 30px;
       width: 22px;
       border: none;
       z-index: 1;
@@ -153,6 +153,11 @@
   @media screen and (max-width: 600px) {
     &__burger {
       background-size: 35px;
+    }
+    &_active .navigation__burger-close{
+      top: 14px;
+      right: 18px;
+      height: 30px;
     }
     &_active {
       width: 100vw;
