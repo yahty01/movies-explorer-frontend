@@ -12,13 +12,13 @@ function Login() {
             <label htmlFor='email' className='login__label'>
               E-mail:
             </label>
-            <input type='email' id='email' name='email' minLength='2' maxLength='40' required className='login__field' />
+            <input type='email' id='email' name='email' minLength='2' maxLength='40' required className='login__field' placeholder='Введите ваш email' />
             <label htmlFor='password' className='login__label'>
               Пароль
             </label>
-            <input type='password' id='password' name='password' minLength='8' required className='login__field' />
+            <input type='password' id='password' name='password' minLength='8' required className='login__field' placeholder='Введите ваш пароль' />
           </fieldset>
-          <button type='button' className='button login__button' aria-label='Войти в свой аккаунт'>
+          <button type='submit' className='button login__button' aria-label='Войти в свой аккаунт'>
             Войти
           </button>
         </form>

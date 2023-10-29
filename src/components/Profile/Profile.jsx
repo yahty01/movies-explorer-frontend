@@ -79,8 +79,8 @@ function Profile() {
                     При обновлении профиля произошла ошибка.
                   </span>
                   <button
-                    type="button"
-                    className="profile__button profile__button_disabled"
+                    type="submit"
+                    className="button profile__button profile__button_disabled"
                     onClick={handleSaveClick}
                     aria-label="Сохранить данные"
                   >

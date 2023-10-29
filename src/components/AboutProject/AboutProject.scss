@@ -41,7 +41,7 @@
 
   &__timeline-one {
     margin-bottom: 14px;
-    height: 36px;
+    min-height: 36px;
     flex-basis: 20%;
     display: flex;
     justify-content: center;
@@ -58,11 +58,11 @@
     justify-content: center;
     align-items: center;
     flex-basis: 80%;
-    height: 36px;
+    min-height: 36px;
     background-color: #303030;
     font-size: 14px;
     font-weight: 400;
-    height: 35px;
+    min-height: 35px;
   }
 
   &__timeline-one-caption {

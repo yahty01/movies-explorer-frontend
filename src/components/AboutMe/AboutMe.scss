@@ -58,7 +58,7 @@
 
   &__personal-photo {
     width: 270px;
-    height: 327px;
+    min-height: 327px;
     display: block;
     border-radius: 10px;
     object-fit: cover;
