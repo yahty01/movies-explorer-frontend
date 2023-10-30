@@ -1,0 +1,75 @@
+.movie-card {
+  background-color: #222;
+
+  &__image {
+    border-radius: 12px 12px 0 0;
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    /* Временно для тестов */
+    background-image: url(../../MovieData/poster/intersteler.jpg);
+  }
+
+  &__info {
+    margin: 14px 0 0;
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &__title {
+      margin: 0;
+      padding: 0;
+      max-width: 206px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.25;
+      flex-basis: 206px;
+    }
+  }
+
+  &__save-button {
+    box-sizing: border-box;
+    display: block;
+    height: 16px;
+    background-color: transparent;
+    width: 16px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transition: 0.3s ease-in-out;
+
+    &.active {
+      background-color: #2be080;
+    }
+
+    &:hover {
+      border: 2px solid #2be080;
+    }
+  }
+
+  &__delete-button {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../images/delete.svg');
+    background-color: transparent;
+    border: none;
+    background-position: center;
+  }
+
+  &__duration {
+    flex-basis: 100%;
+    margin: 10px 0 0;
+    padding: 0 0 14px;
+    text-align: left;
+    color: #8b8b8b;
+    font-size: 11px;
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,170 @@
+.profile {
+  text-align: center;
+  padding-top: 74px;
+  max-width: 410px;
+  margin: 0 auto;
+  width: 100%;
+  color: #fff;
+
+  &__heading {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  &__field-container {
+    width: 80%;
+  }
+
+  &__error-message {
+    display: block;
+    flex-basis: 100%;
+    min-height: 12px;
+    margin: 0 0 5px 0;
+    padding: 0;
+    color: #ee3465;
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  &__error-message_main {
+    text-align: center;
+    font-size: 11px;
+  }
+
+  &__name-row {
+    display: flex;
+    column-gap: 10px;
+    margin-top: 126px;
+    border-bottom: 1px solid #424242;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  &__email-row {
+    display: flex;
+    column-gap: 10px;
+    padding-top: 17px;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  &__link-edit {
+    border: none;
+    background-color: transparent;
+    margin: 220px auto 0;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  &__link-exit {
+    border: none;
+    background-color: transparent;
+    margin: 16px auto 0;
+    color: #ee3465;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  &__field-name,
+  &__field-email {
+    
+    box-sizing: border-box;
+    display: block;
+    text-align: right;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    margin: 0 0 7px 0;
+    padding: 0px 4px;
+    transition: all 0.1s ease-in-out;
+
+    &:focus {
+      border: none;
+      border-radius: 2px;
+      outline: 1px solid #a2a2a2;
+      outline-offset: 4px;
+    }
+  }
+
+  &__field-email_error,
+  &__field-name_error {
+    color: #ee3465;
+
+    &:focus {
+      outline: 1px #ee3465 solid;
+    }
+  }
+
+  &__error {
+    margin-top: 70px;
+    padding: 0;
+    display: block;
+    color: #ee3465;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  &__button {
+    padding: 0;
+    margin: 20px 0 30px;
+    background-color: #4285f4;
+    width: 100%;
+    height: 45px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 3px;
+
+    &_disabled {
+      background: #f8f8f8;
+      color: #c2c2c2;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    padding-top: 236px;
+
+    &__name-row {
+      margin-top: 98px;
+    }
+
+    &__link-edit {
+      margin-top: 130px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    &__container {
+      margin: 0 auto;
+      max-width: calc(100vw - 60px);
+    }
+
+    padding-top: 70px;
+
+    &__name-row {
+      margin-top: 83px;
+    }
+
+    &__link-edit {
+      margin-top: 320px;
+      font-size: 12px;
+    }
+
+    &__link-exit {
+      font-size: 12px;
+    }
+  }
+}

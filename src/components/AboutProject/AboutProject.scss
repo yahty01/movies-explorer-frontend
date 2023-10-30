@@ -1,0 +1,161 @@
+.about-project {
+  padding: 110px 0;
+  background-color: #202020;
+  color: #fff;
+
+  &__text-container {
+    margin-top: 70px;
+    display: flex;
+    gap: 55px;
+    text-align: left;
+  }
+
+  &__text-block {
+    margin-bottom: 111px;
+  }
+
+  &__text-heading {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.8px;
+  }
+
+  &__text-message {
+    margin: 26px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  &__timeline {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__timeline-one {
+    margin-bottom: 14px;
+    min-height: 36px;
+    flex-basis: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3ddc84;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &__timeline-four {
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 80%;
+    min-height: 36px;
+    background-color: #303030;
+    font-size: 14px;
+    font-weight: 400;
+    min-height: 35px;
+  }
+
+  &__timeline-one-caption {
+    color: #8b8b8b;
+    flex-basis: 20%;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+  }
+
+  &__timeline-four-caption {
+    color: #8b8b8b;
+    flex-basis: 80%;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    padding: 90px 0;
+
+    &__text-block {
+      margin-bottom: 96px;
+    }
+
+    &__text-message {
+      margin: 21px 0 0;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &__text-container {
+      gap: 35px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 67px 0 70px;
+
+    &__text-container {
+      flex-direction: column;
+      margin-top: 64px;
+      margin-bottom: 40px;
+    }
+
+    &__text-heading {
+      width: auto;
+      margin: 0 4px 16px;
+      font-size: 18px;
+      letter-spacing: -0.72px;
+    }
+
+    &__text-message {
+      width: auto;
+      margin: 0 4px;
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    &__text-block {
+      margin-bottom: 24px;
+    }
+
+    &__text-block:last-child {
+      margin-bottom: 20px;
+    }
+
+    &__timeline {
+      margin: 0 4px;
+      width: auto;
+      row-gap: 6px;
+    }
+
+    &__timeline-one {
+      font-size: 11px;
+      flex-basis: 35%;
+      margin: 0;
+    }
+
+    &__timeline-four {
+      font-size: 11px;
+      flex-basis: 65%;
+      margin: 0;
+    }
+
+    &__timeline-one-caption {
+      font-size: 11px;
+      flex-basis: 35%;
+    }
+
+    &__timeline-four-caption {
+      font-size: 11px;
+      flex-basis: 65%;
+    }
+  }
+}
