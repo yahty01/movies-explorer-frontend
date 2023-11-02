@@ -8,8 +8,6 @@
     display: block;
     object-fit: cover;
     object-position: center;
-    /* Временно для тестов */
-    background-image: url(../../MovieData/poster/intersteler.jpg);
   }
 
   &__info {
@@ -18,21 +16,21 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
 
-    &__title {
-      margin: 0;
-      padding: 0;
-      max-width: 206px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-align: left;
-      text-overflow: ellipsis;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.25;
-      flex-basis: 206px;
-    }
+  &__title {
+    margin: 0;
+    padding: 0;
+    max-width: 206px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25;
+    flex-basis: 206px;
   }
 
   &__save-button {
@@ -45,13 +43,13 @@
     border: 2px solid #fff;
     transition: 0.3s ease-in-out;
 
-    &.active {
-      background-color: #2be080;
-    }
-
     &:hover {
       border: 2px solid #2be080;
     }
+  }
+
+  &__save-button_active {
+    background-color: #2be080;
   }
 
   &__delete-button {

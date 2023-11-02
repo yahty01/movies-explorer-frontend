@@ -1,0 +1,25 @@
+.info-popup {
+  color: #fff;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  max-width: 50%;
+  background: #2be080;
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+  border-radius: 0.5rem;
+  transition: opacity 2s ease;
+
+  &__image {
+    width: 20px;
+  }
+
+  &__message {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
+  }
+}

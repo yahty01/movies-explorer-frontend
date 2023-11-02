@@ -1,22 +1,21 @@
-import { useLocation } from 'react-router-dom';
-import Logo from '../Logo/Logo';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Navigation from '../Navigation/Navigation';
 import NavTab from '../NavTab/NavTab';
-import { authPages } from '../../utils/constants';
-
+import Logo from '../Logo/Logo';
 import './Header.scss';
 
-function Header({ mode }) {
-  const location = useLocation();
-  const isAuthPage = authPages.includes(location.pathname);
+function Header({ dark }) {
+  const { loggedIn } = useContext(CurrentUserContext);
+  const headerClass = `header ${dark ? 'header_mode_dark' : ''}`;
 
   return (
-    <header className={mode === 'dark' ? 'header header_mode_dark' : 'header'}>
+    <header className={headerClass}>
       <div className='header__container'>
         <div className='header__top-line'>
           <Logo />
-          {/* Навигация в зависимости от типа страницы */}
-          {(isAuthPage) ? <Navigation /> : <NavTab />}
+          {/* Отображение Navigation или NavTab в зависимости от статуса входа */}
+          {loggedIn ? <Navigation /> : <NavTab />}
         </div>
       </div>
     </header>

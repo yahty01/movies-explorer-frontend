@@ -1,11 +1,15 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-// Проверка авторизации 
-const ProtectedRouteElement = ({ element: Component, loggedIn, ...props }) => {
-  // Если пользователь вошел в систему, рендерим переданный компонент
-  // В противном случае перенаправляем пользователя на страницу входа
-  return loggedIn ? <Component {...props} /> : <Navigate to='/signin' replace />;
+const ProtectedRoute = ({ element: Component, ...props }) => {
+  const { loggedIn } = useContext(CurrentUserContext);
+  return loggedIn ? <Component {...props} /> : <Navigate to='/' replace />;
 };
 
-export default ProtectedRouteElement;
+const AuthRoute = ({ element: Component, ...props }) => {
+  const { loggedIn } = useContext(CurrentUserContext);
+  return !loggedIn ? <Component {...props} /> : <Navigate to='/movies' replace />;
+};
+
+export { ProtectedRoute, AuthRoute  };

@@ -1,44 +1,109 @@
-import Logo from '../Logo/Logo';
-import './Register.scss';
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
-function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform form validation here
-    // Submit the form data
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
+import { useFormWithValidation } from "../../utils/useFormWithValidation";
+
+import Logo from "../Logo/Logo";
+import "./Register.scss";
+
+function Register({ onSignUp, errorMessage, setErrorAuthMessage }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
+  const { isLoading } = useContext(CurrentUserContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSignUp(values.name, values.email, values.password, resetForm);
+  };
+
+  const handleChangeInput = (e) => {
+    setErrorAuthMessage("");
+    handleChange(e);
   };
 
   return (
-    <main className='register'>
-      <div className='register__container'>
+    <main className="register">
+      <div className="register__container">
         <Logo />
-        <h1 className='register__heading'>Добро пожаловать!</h1>
-        <form className='register__form' onSubmit={handleSubmit} name='registerForm'>
-          <fieldset className='register__fieldset'>
-            <label htmlFor='name' className='register__label'>
+        <h1 className="register__heading">Добро пожаловать!</h1>
+        <form className="register__form" onSubmit={handleSubmit}>
+          <fieldset className="register__fieldset">
+            <label htmlFor="name" className="register__label">
               Имя
             </label>
-            <input type='text' id='name' name='name' minLength='2' required className='register__field' placeholder='Введите имя' />
-            <label htmlFor='email' className='register__label'>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              minLength="2"
+              required
+              className={`register__field ${
+                errors.name && "register__field_error"
+              }`}
+              value={values.name || ""}
+              onChange={handleChangeInput}
+              pattern="^[A-Za-zА-Яа-я\s\-]+$"
+              title="Имя должно содержать только латиницу, кириллицу, пробел или дефис"
+            />
+            <span className="register__error-message">{errors.name}</span>
+            <label htmlFor="email" className="register__label">
               Email:
             </label>
-            <input type='email' id='email' name='email' minLength='2' required className='register__field' placeholder='Введите email' />
-            {/*passwordInput*/}
-            <label htmlFor='password' className='register__label'> 
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={values.email || ""}
+              minLength="2"
+              required
+              className={`register__field ${
+                errors.email && "register__field_error"
+              }`}
+              pattern="^\S+@\S+\.\S+$"
+              title="Некорректный формат почты"
+              onChange={handleChangeInput}
+            />
+            <span className="register__error-message">{errors.email}</span>
+            <label htmlFor="password" className="register__label">
               Пароль
             </label>
-            <input type='password' id='password' name='password' minLength='8' required className='register__field register__field_error' placeholder='Введите пароль' />
-            <span className='error-message'>Что-то пошло не так...</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={values.password || ""}
+              minLength="8"
+              required
+              className={`register__field ${
+                errors.password && "register__field_error"
+              }`}
+              onChange={handleChangeInput}
+            />
+            <span className="register__error-message">{errors.password}</span>
           </fieldset>
-          <button type='submit' className='button register__button' aria-label='Зарегистрировать аккаунт'>
-            Зарегистрироваться
-          </button>
+          <div className="register__wrapper">
+            <span className="register__error-message register__error-message_main">
+              {errorMessage}
+            </span>
+            <button
+              type="submit"
+              className={`button register__button ${
+                !isValid || errorMessage ? "register__button_disabled" : ""
+              }`}
+              aria-label="Зарегистрировать аккаунт"
+              disabled={!isValid || errorMessage || isLoading}
+            >
+              Зарегистрироваться
+            </button>
+          </div>
         </form>
-        <p className='register__message'>
-          Уже зарегистрированы?{' '}
-          <a className='link register__link' href='/signin'>
+        <p className="register__message">
+          Уже зарегистрированы?{" "}
+          <Link className="link register__link" to="/signin">
             Войти
-          </a>
+          </Link>
         </p>
       </div>
     </main>

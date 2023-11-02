@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: calc(100vh - 323px);
   }
 
   &__heading {
@@ -23,7 +24,7 @@
 
   &__label {
     margin: 0;
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
     display: block;
     color: #8b8b8b;
     font-size: 10px;
@@ -37,7 +38,7 @@
   }
 
   &__field {
-    margin: 0 0 20px 0;
+    margin: 0 0 5px;
     padding: 15px;
     width: 100%;
     height: 46px;
@@ -55,6 +56,30 @@
       outline: 1px #b6b6b6 solid;
       outline-offset: 1px;
       border-radius: 8px;
+    }
+
+    &_error {
+      color: #ee3465;
+
+      &:focus {
+        outline: 1px #ee3465 solid;
+      }
+    }
+  }
+
+  &__error-message {
+    display: block;
+    min-height: 12px;
+    margin: 0 0 5px;
+    padding: 0;
+    color: #ee3465;
+    font-size: 10px;
+    font-weight: 400;
+
+    &_main {
+      text-align: center;
+      font-size: 11px;
+      margin-bottom: 20px;
     }
   }
 
@@ -84,19 +109,27 @@
     font-weight: 500;
     border: none;
     border-radius: 3px;
-    margin-top: calc(100% - 238px);
+
+    &_disabled {
+      background: #f8f8f8;
+      color: #c2c2c2;
+      cursor: default;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .button_type_login {
+    font-size: 12px;
   }
 
-  @media screen and (max-width: 600px) {
-    & {
-      text-align: center;
-      margin: 0 auto;
-      padding-top: 56px;
-    }
+  .login {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 56px;
 
     &__button {
       font-size: 12px;
-      margin-top: calc(30.9vh);
     }
 
     &__heading {
@@ -124,7 +157,7 @@
     }
 
     &__form {
-      max-height: 468px;
+      min-height: calc(100vh - 312px);
     }
   }
 }

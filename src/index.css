@@ -1,28 +1,20 @@
-/* Импорт стилей библиотек и шрифтов */
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
-/* Основные переменные */
-:root {
-  --transition-speed: 0.3s;
-  --main-font: 'Inter', Arial, sans-serif;
-  --main-bg-color: #202020;
-}
-
 body {
-  background-color: var(--main-bg-color);
-  font-family: var(--main-font);
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
+  background-color: #202020;
+  font-family: 'Inter', Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
 
 .link {
   text-decoration: none;
-  transition: opacity var(--transition-speed) ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .link:hover {
@@ -31,7 +23,7 @@ body {
 
 .button {
   cursor: pointer;
-  transition: opacity var(--transition-speed) ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .button:hover {

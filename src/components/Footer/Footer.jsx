@@ -1,9 +1,7 @@
-import React from 'react';
 import './Footer.scss';
 
 function Footer() {
   const date = new Date();
-
   return (
     <footer className='footer'>
       <div className='footer__container'>
@@ -15,7 +13,7 @@ function Footer() {
               className='link footer__link'
               href='https://practicum.yandex.ru'
               target='_blank'
-              rel='noopener noreferrer'
+              rel='noreferrer'
               aria-label='Перейти на официальный сайт Яндекс Практикума'
             >
               Яндекс.Практикум
@@ -24,8 +22,8 @@ function Footer() {
               className='link footer__link'
               href='https://github.com/yahty01'
               target='_blank'
-              rel='noopener noreferrer'
-              aria-label='Перейти на страницу студента в GitHub'
+              rel='noreferrer'
+              aria-label='Перейти в GitHub'
             >
               Github
             </a>
