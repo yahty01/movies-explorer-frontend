@@ -6,19 +6,16 @@ import {
   REGISTER_ERROR,
 } from './constants';
 
-const checkResponse = async (res, errorOnFailure = REGISTER_ERROR) => {
-  const contentType = res.headers.get('content-type');
-  const data = contentType && contentType.includes('application/json')
-    ? await res.json()
-    : await res.text();
-
+const checkResponse = (res) => {
   if (res.ok) {
-    return data;
+    return res.json();
   } else {
-    if (res.status === 409) return Promise.reject(EMAIL_EXISTS_ERROR);
-    if (res.status === 401) return Promise.reject(UNAUTHORIZED_ERROR);
-    if (data.message) return Promise.reject(data.message);
-    return Promise.reject(data || errorOnFailure);
+    const contentType = res.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      return res.json().then((data) => Promise.reject(data.message));
+    } else {
+      return res.text().then((text) => Promise.reject(text));
+    }
   }
 };
 
@@ -29,36 +26,48 @@ const options = {
   credentials: 'include',
 };
 
-export const signup = async (name, email, password) => {
-  const res = await fetch(`${BASE_URL}/signup`, {
+export const signup = (name, email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     ...options,
     body: JSON.stringify({ name, email, password }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    if (res.status === 409) {
+      return Promise.reject(EMAIL_EXISTS_ERROR);
+    }
+    return Promise.reject(REGISTER_ERROR);
   });
-  return checkResponse(res);
 };
 
-export const signin = async (email, password) => {
-  const res = await fetch(`${BASE_URL}/signin`, {
+export const signin = (email, password) => {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     ...options,
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ password, email }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    if (res.status === 401) {
+      return Promise.reject(UNAUTHORIZED_ERROR);
+    }
+    return Promise.reject(LOGIN_ERROR);
   });
-  return checkResponse(res, LOGIN_ERROR);
 };
 
-export const signout = async () => {
-  const res = await fetch(`${BASE_URL}/signout`, {
+export const signout = () => {
+  return fetch(`${BASE_URL}/signout`, {
     method: 'POST',
     ...options,
-  });
-  return checkResponse(res);
+  }).then((res) => checkResponse(res));
 };
 
-export const checkToken = async () => {
-  const res = await fetch(`${BASE_URL}/users/me`, {
+export const checkToken = () => {
+  return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     ...options,
-  });
-  return checkResponse(res);
+  }).then((res) => checkResponse(res));
 };
