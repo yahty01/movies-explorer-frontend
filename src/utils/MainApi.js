@@ -1,83 +1,81 @@
-import { 
-  MAIN_API_BASE_URL, 
-  MOVIE_API_BASE_URL, 
-  NOT_FOUND_ERROR, 
-  SERVER_ERROR, 
-  UPDATE_PROFILE_ERROR, 
-  EMAIL_EXISTS_ERROR } 
-  from './constants';
-
+import { MAIN_API_BASE_URL, MOVIE_API_BASE_URL } from './constants';
+import { NOT_FOUND_ERROR, SERVER_ERROR, UPDATE_PROFILE_ERROR, EMAIL_EXISTS_ERROR } from './constants';
 
 class MainApi {
-  // Конструктор класса, инициализирует базовый URL и заголовки для API запросов
-  constructor({ baseUrl, headers }) {
-    this.baseUrl = baseUrl;
-    this.headers = headers;
+  constructor(options) {
+    this.baseUrl = options.baseUrl;
+    this.headers = options.headers;
   }
 
-  // Внутренний метод для проверки ответа сервера и обработки ошибок
   _checkResponse(res) {
-    // Если ответ не OK, определяем тип ошибки и возвращаем ее
-    if (!res.ok) {
-      const error = res.status === 404 ? NOT_FOUND_ERROR : 
-                    res.status === 500 ? SERVER_ERROR : 
-                    UPDATE_PROFILE_ERROR;
-      return res.json().then((err) => Promise.reject(err.message || error));
+    if (res.ok) {
+      return res.json();
+    } else if (res.status === 404) {
+      return Promise.reject(NOT_FOUND_ERROR);
+    } else if (res.status === 500) {
+      return Promise.reject(SERVER_ERROR);
+    } else {
+      return res.json().then((err) => Promise.reject(err.message));
     }
-    return res.json();
   }
 
-  // Универсальный метод для отправки запросов, добавляет заголовки и креденшиалы к каждому запросу
-  _fetch(url, options = {}) {
-    return fetch(url, { ...options, headers: this.headers, credentials: 'include' }).then(this._checkResponse);
-  }
-
-  // Получение всех фильмов
   getAllMovies() {
-    return this._fetch(`${this.baseUrl}/movies`);
+    return fetch(`${this.baseUrl}/movies`, {
+      headers: this.headers,
+      credentials: 'include',
+    }).then((res) => this._checkResponse(res));
   }
 
-  // Добавление нового фильма
   addMovie(movie) {
-    // Сбор данных фильма и подготовка тела запроса
-    const { country, director, duration, description, image, id, nameRU, nameEN, trailerLink, year } = movie;
-    const body = JSON.stringify({
-      country, director, duration, description,
-      image: `${MOVIE_API_BASE_URL}${image.url}`,
-      movieId: id, nameRU, nameEN,
-      thumbnail: `${MOVIE_API_BASE_URL}${image.url}`,
-      trailerLink, year,
-    });
-
-    return this._fetch(`${this.baseUrl}/movies`, {
+    return fetch(`${this.baseUrl}/movies`, {
       method: 'POST',
-      body,
-    });
+      headers: this.headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        description: movie.description,
+        image: `${MOVIE_API_BASE_URL}${movie.image.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: `${MOVIE_API_BASE_URL}${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        year: movie.year,
+      }),
+    }).then((res) => this._checkResponse(res));
   }
 
-  // Удаление фильма по ID
   deleteMovie(movieId) {
-    return this._fetch(`${this.baseUrl}/movies/${movieId}`, {
+    return fetch(`${this.baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
-    });
+      headers: this.headers,
+      credentials: 'include',
+    }).then((res) => this._checkResponse(res));
   }
 
-  // Получение информации о пользователе
   getUserInfo() {
-    return this._fetch(`${this.baseUrl}/users/me`);
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: this.headers,
+      credentials: 'include',
+    }).then((res) => this._checkResponse(res));
   }
 
-  // Изменение информации пользователя
   changeUserInfo(data) {
-    return this._fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
+      headers: this.headers,
+      credentials: 'include',
       body: JSON.stringify(data),
-    }).catch((err) => {
-      // Обработка специфической ошибки о существовании электронной почты
-      if (err === EMAIL_EXISTS_ERROR) {
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      if (res.status === 409) {
         return Promise.reject(EMAIL_EXISTS_ERROR);
       }
-      throw err;
+      return Promise.reject(UPDATE_PROFILE_ERROR);
     });
   }
 }
