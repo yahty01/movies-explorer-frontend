@@ -12,4 +12,4 @@ const AuthRoute = ({ element: Component, ...props }) => {
   return !loggedIn ? <Component {...props} /> : <Navigate to='/movies' replace />;
 };
 
-export { ProtectedRoute, AuthRoute  };
+export { ProtectedRoute, AuthRoute };

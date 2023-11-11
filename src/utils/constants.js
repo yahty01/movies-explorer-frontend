@@ -5,14 +5,14 @@ const SHORT_FILM_DURATION = 40;
 
 const EDIT_PROFILE_SUCCESS_MESSAGE = 'Данные успешно отредактированы!';
 
-const SERVER_ERROR = 'Ошибка сервера';
-const LOGIN_ERROR = 'При авторизации произошла ошибка';
-const UNAUTHORIZED_ERROR = 'Вы ввели неправильную почту или пароль';
-const NOT_FOUND_ERROR = 'Страница по указанному маршруту не найдена';
 const EMAIL_EXISTS_ERROR = 'Пользователь с таким email уже существует';
-const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка';
 const UPDATE_PROFILE_ERROR = 'При обновлении профиля произошла ошибка';
+const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка';
+const UNAUTHORIZED_ERROR = 'Вы ввели неправильную почту или пароль';
+const LOGIN_ERROR = 'При авторизации произошла ошибка';
 const DATA_NOT_CHANGED_ERROR = 'Такие данные уже используются. Измените данные.';
+const NOT_FOUND_ERROR = 'Страница по указанному маршруту не найдена';
+const SERVER_ERROR = 'Ошибка сервера';
 
 const SCREEN_SIZE_MAP = {
   xl: { cards: 16, addCardsNumber: 4 },
