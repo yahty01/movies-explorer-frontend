@@ -1,3 +1,5 @@
+https://kino.nomoredomainsrocks.ru/
+https://api.kino.nomoredomainsrocks.ru/
 # Фронтенд Диплома Movies Explorer
 
 ## Описание проекта
