@@ -1,3 +1,7 @@
+## Ссылки
+- https://kino.nomoredomainsrocks.ru/ 
+- https://api.kino.nomoredomainsrocks.ru/ 
+- https://github.com/yahty01/movies-explorer-frontend/pull/2
 # Фронтенд Диплома Movies Explorer
 
 ## Описание проекта
