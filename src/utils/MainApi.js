@@ -1,90 +1,90 @@
-import { MAIN_API_BASE_URL, MOVIE_API_BASE_URL } from './constants';
-import { NOT_FOUND_ERROR, SERVER_ERROR, UPDATE_PROFILE_ERROR, EMAIL_EXISTS_ERROR } from './constants';
+import { fetchRequest } from "./request";
+import { MAIN_API_BASE_URL, MOVIE_API_BASE_URL } from "./constants";
 
+// Определение класса MainApi для взаимодействия с API.
 class MainApi {
-  constructor(options) {
-    this.baseUrl = options.baseUrl;
-    this.headers = options.headers;
+  // Конструктор принимает основной URL и заголовки API в качестве параметра.
+  constructor({ baseUrl, headers }) {
+    this.baseUrl = baseUrl;
+    this.headers = headers;
   }
 
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    } else if (res.status === 404) {
-      return Promise.reject(NOT_FOUND_ERROR);
-    } else if (res.status === 500) {
-      return Promise.reject(SERVER_ERROR);
-    } else {
-      return res.json().then((err) => Promise.reject(err.message));
-    }
+  // Метод для получения информации о всех фильмах от API.
+  async getAllMovies() {
+    return await fetchRequest(`${this.baseUrl}/movies`, {}, this.headers);
   }
 
-  getAllMovies() {
-    return fetch(`${this.baseUrl}/movies`, {
-      headers: this.headers,
-      credentials: 'include',
-    }).then((res) => this._checkResponse(res));
+  // Метод добавляет новый фильм. Принимает объект фильма в качестве параметра.
+  async addMovie(movie) {
+    const {
+      country,
+      director,
+      duration,
+      description,
+      image: { url, thumbnail },
+      nameRU,
+      nameEN,
+      id,
+      trailerLink,
+      year,
+    } = movie;
+
+    return await fetchRequest(
+      `${this.baseUrl}/movies`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          country,
+          director,
+          duration,
+          description,
+          image: `${MOVIE_API_BASE_URL}${url}`, // вставляем полный URL изображения фильма
+          nameRU,
+          nameEN,
+          thumbnail: `${MOVIE_API_BASE_URL}${thumbnail}`, // вставляем полный URL миниатюры
+          movieId: id,
+          trailerLink,
+          year,
+        }),
+      },
+      this.headers
+    );
   }
 
-  addMovie(movie) {
-    return fetch(`${this.baseUrl}/movies`, {
-      method: 'POST',
-      headers: this.headers,
-      credentials: 'include',
-      body: JSON.stringify({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        description: movie.description,
-        image: `${MOVIE_API_BASE_URL}${movie.image.url}`,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: `${MOVIE_API_BASE_URL}${movie.image.url}`,
-        trailerLink: movie.trailerLink,
-        year: movie.year,
-      }),
-    }).then((res) => this._checkResponse(res));
+  // Метод удаляет фильм. Принимает id фильма в качестве параметра.
+  async deleteMovie(movieId) {
+    return await fetchRequest(
+      `${this.baseUrl}/movies/${movieId}`,
+      {
+        method: "DELETE",
+      },
+      this.headers
+    );
   }
 
-  deleteMovie(movieId) {
-    return fetch(`${this.baseUrl}/movies/${movieId}`, {
-      method: 'DELETE',
-      headers: this.headers,
-      credentials: 'include',
-    }).then((res) => this._checkResponse(res));
+  // Метод получает информацию о текущем пользователе.
+  async getUserInfo() {
+    return await fetchRequest(`${this.baseUrl}/users/me`, {}, this.headers);
   }
 
-  getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers,
-      credentials: 'include',
-    }).then((res) => this._checkResponse(res));
-  }
-
-  changeUserInfo(data) {
-    return fetch(`${this.baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this.headers,
-      credentials: 'include',
-      body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      if (res.status === 409) {
-        return Promise.reject(EMAIL_EXISTS_ERROR);
-      }
-      return Promise.reject(UPDATE_PROFILE_ERROR);
-    });
+  // Метод изменяет информацию пользователя. Принимает объект с данными пользователя в качестве параметра.
+  async changeUserInfo(data) {
+    return await fetchRequest(
+      `${this.baseUrl}/users/me`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      },
+      this.headers
+    );
   }
 }
 
+// Создание экземпляра класса с заданными параметрами, которые будут использоваться по умолчанию.
 const mainApi = new MainApi({
   baseUrl: MAIN_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
+// Экспорт экземпляра API для дальнейшего использования.
 export default mainApi;
