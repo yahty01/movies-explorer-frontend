@@ -1,4 +1,4 @@
-import { MOVIES_API_URL } from './constants';
+import { MOVIES_API_URL } from '../constants';
 
 class MoviesApi {
   constructor(baseUrl, headers) {

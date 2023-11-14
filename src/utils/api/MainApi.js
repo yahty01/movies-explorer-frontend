@@ -1,5 +1,5 @@
-import { fetchRequest } from "./request";
-import { MAIN_API_URL, MOVIES_API_URL } from "./constants";
+import { fetchRequest } from "../request";
+import { MAIN_API_URL, MOVIES_API_URL } from "../constants";
 
 // Определение класса MainApi для взаимодействия с API.
 class MainApi {

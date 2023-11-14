@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 // Импорт API для работы с фильмами
-import mainApi from '../../utils/MainApi';
+import mainApi from '../../utils/api/MainApi';
 // Утилиты для работы с фильтрацией фильмов
 import { filterMovies } from '../../utils/utils';
 // Импорты компонентов
