@@ -6,8 +6,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // Утилиты
 import { AuthRoute, ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import { useApiErrorHandling } from '../../utils/useApiErrorHandling';
-import { useInfoMessageHandling } from '../../utils/useInfoMessageHandling';
+import { useApiErrorHandling } from '../../hooks/useApiErrorHandling';
+import { useInfoMessageHandling } from '../../hooks/useInfoMessageHandling';
 import * as auth from '../../utils/auth/auth';
 import mainApi from '../../utils/api/MainApi';
 import { EDIT_PROFILE_SUCCESS_MSG } from '../../utils/constants';

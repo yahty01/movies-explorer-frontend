@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import moviesApi from '../../utils/api/MoviesApi';
 import { filterMovies, getNumOfCards } from '../../utils/utils';
-import useLocalStorage from '../../utils/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import mainApi from '../../utils/api/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
