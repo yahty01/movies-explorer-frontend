@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-import { useFormWithValidation } from "../../utils/useFormWithValidation";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 import Logo from "../Logo/Logo";
 import "./Register.scss";

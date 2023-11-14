@@ -8,7 +8,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { AuthRoute, ProtectedRoute } from '../../utils/ProtectedRoute';
 import { useApiErrorHandling } from '../../utils/useApiErrorHandling';
 import { useInfoMessageHandling } from '../../utils/useInfoMessageHandling';
-import * as auth from '../../utils/auth';
+import * as auth from '../../utils/auth/auth';
 import mainApi from '../../utils/MainApi';
 import { EDIT_PROFILE_SUCCESS_MSG } from '../../utils/constants';
 
