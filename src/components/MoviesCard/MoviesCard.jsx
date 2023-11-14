@@ -1,7 +1,7 @@
 import './MoviesCard.scss';
 import { useLocation } from 'react-router-dom';
 import { MOVIES_API_URL } from '../../utils/constants';
-import { formatDuration } from '../../utils/utils';
+import { convertMins } from '../../utils/utils';
 
 function MoviesCard({ movie, onSave, onDelete }) {
   const location = useLocation();
@@ -43,7 +43,7 @@ function MoviesCard({ movie, onSave, onDelete }) {
             onClick={handleSaveButtonClick}
           ></button>
         )}
-        <p className='movie-card__duration'>{formatDuration(movie.duration)}</p>
+        <p className='movie-card__duration'>{convertMins(movie.duration)}</p>
       </div>
     </li>
   );

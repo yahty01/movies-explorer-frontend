@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+import { useFormValidation } from "../../hooks/useFormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import { ERROR_DATA_NOT_CHANGED } from "../../utils/constants";
@@ -19,7 +19,7 @@ function Profile({
   const [email, setEmail] = useState(null);
   const { currentUser, isLoading } = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setIsValid } =
-    useFormWithValidation();
+    useFormValidation();
 
   const prevNameRef = useRef(name);
   const prevEmailRef = useRef(email);

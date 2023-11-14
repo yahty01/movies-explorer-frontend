@@ -1,14 +1,14 @@
-export const checkResponse = (res) => {
+export const checkResponse = async (res) => {
   if (res.ok) {
     return res.json();
-  } else {
-    const contentType = res.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
-      return res.json().then((data) => Promise.reject(data.message));
-    } else {
-      return res.text().then((text) => Promise.reject(text));
-    }
   }
+  
+  const contentType = res.headers.get("content-type");
+  const errorText = contentType && contentType.includes("application/json")
+    ? (await res.json()).message
+    : await res.text();
+
+  throw new Error(errorText);
 };
 
 export const options = {

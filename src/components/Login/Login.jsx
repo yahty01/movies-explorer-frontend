@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useFormValidation } from '../../hooks/useFormValidation';
 import Logo from '../Logo/Logo';
 import './Login.scss';
 
 function Login({ onSignIn, errorMessage, setErrorAuthMessage }) {
   // Использование кастомного хука для валидации формы
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
 
   // Получение состояния загрузки из контекста
   const { isLoading } = useContext(CurrentUserContext);

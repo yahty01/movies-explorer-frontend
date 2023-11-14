@@ -2,8 +2,8 @@ import {
   ERROR_404,
   ERROR_SERVER,
   ERROR_PROFILE_UPDATE,
-  ERROR_EMAIL_EXISTS,
-} from "./constants";
+  ERROR_EMAIL,
+} from "../constants";
 
 // Функция проверяет ответ сервера на наличие ошибок. 
 // Если таковые обнаружены, будет выброшено исключение.
@@ -18,7 +18,7 @@ export async function checkResponse(res) {
       case 500:
         throw new Error(ERROR_SERVER);
       case 409:
-        throw new Error(ERROR_EMAIL_EXISTS);
+        throw new Error(ERROR_EMAIL);
       default:
         throw new Error(error.message || ERROR_PROFILE_UPDATE);
     }

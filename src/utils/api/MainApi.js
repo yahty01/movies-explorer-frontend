@@ -1,20 +1,31 @@
-import { fetchRequest } from "../request";
+import { fetchRequest } from "./request";
 import { MAIN_API_URL, MOVIES_API_URL } from "../constants";
-
-// Определение класса MainApi для взаимодействия с API.
+/**
+ * Класс для работы с основным API.
+ */
 class MainApi {
-  // Конструктор принимает основной URL и заголовки API в качестве параметра.
+  /**
+   * Создает экземпляр API.
+   * @param {object} options - Опции API, включая базовый URL и заголовки.
+   */
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
-  // Метод для получения информации о всех фильмах от API.
+  /**
+   * Получает все фильмы.
+   * @returns {Promise<Array>} Промис с массивом фильмов.
+   */
   async getAllMovies() {
     return await fetchRequest(`${this.baseUrl}/movies`, {}, this.headers);
   }
 
-  // Метод добавляет новый фильм. Принимает объект фильма в качестве параметра.
+  /**
+   * Добавляет новый фильм.
+   * @param {object} movie - Объект данных фильма для добавления.
+   * @returns {Promise<object>} Промис с результатом добавления фильма.
+   */
   async addMovie(movie) {
     const {
       country,
@@ -38,10 +49,10 @@ class MainApi {
           director,
           duration,
           description,
-          image: `${MOVIES_API_URL}${url}`, // вставляем полный URL изображения фильма
+          image: `${MOVIES_API_URL}${url}`,
           nameRU,
           nameEN,
-          thumbnail: `${MOVIES_API_URL}${thumbnail}`, // вставляем полный URL миниатюры
+          thumbnail: `${MOVIES_API_URL}${thumbnail}`,
           movieId: id,
           trailerLink,
           year,
@@ -51,7 +62,11 @@ class MainApi {
     );
   }
 
-  // Метод удаляет фильм. Принимает id фильма в качестве параметра.
+  /**
+   * Удаляет фильм по идентификатору.
+   * @param {string} movieId - ID фильма для удаления.
+   * @returns {Promise<object>} Промис с результатом удаления фильма.
+   */
   async deleteMovie(movieId) {
     return await fetchRequest(
       `${this.baseUrl}/movies/${movieId}`,
@@ -62,12 +77,19 @@ class MainApi {
     );
   }
 
-  // Метод получает информацию о текущем пользователе.
+  /**
+   * Получает информацию о текущем пользователе.
+   * @returns {Promise<object>} Промис с данными текущего пользователя.
+   */
   async getUserInfo() {
     return await fetchRequest(`${this.baseUrl}/users/me`, {}, this.headers);
   }
 
-  // Метод изменяет информацию пользователя. Принимает объект с данными пользователя в качестве параметра.
+  /**
+   * Изменяет информацию пользователя.
+   * @param {object} data - Объект с новыми данными пользователя.
+   * @returns {Promise<object>} Промис с результатом обновления данных пользователя.
+   */
   async changeUserInfo(data) {
     return await fetchRequest(
       `${this.baseUrl}/users/me`,
@@ -80,11 +102,9 @@ class MainApi {
   }
 }
 
-// Создание экземпляра класса с заданными параметрами, которые будут использоваться по умолчанию.
 const mainApi = new MainApi({
   baseUrl: MAIN_API_URL,
   headers: { "Content-Type": "application/json" },
 });
 
-// Экспорт экземпляра API для дальнейшего использования.
 export default mainApi;

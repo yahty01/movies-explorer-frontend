@@ -1,35 +1,52 @@
-import { MOVIES_API_URL } from '../constants';
+import { ERROR_404, ERROR_SERVER, MOVIES_API_URL } from '../constants';
 
+/**
+ * Класс для взаимодействия с API фильмов.
+ */
 class MoviesApi {
-  constructor(baseUrl, headers) {
+  /**
+   * Создает экземпляр API для фильмов.
+   * @param {object} options - опции для конструктора.
+   */
+  constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
+  /**
+   * Проверяет HTTP-ответ от сервера.
+   * @param {Response} res - объект ответа от fetch.
+   * @returns {Promise<any>} - Промис с результатом ответа.
+   */
   async _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    } else {
-      const error = await res.text();
-      try {
-        const parsedError = JSON.parse(error);
-        throw new Error(parsedError.message || error);
-      } catch (e) {
-        throw new Error(error);
-      }
+    if (res.ok) return res.json();
+
+    switch (res.status) {
+      case 404:
+        throw new Error(ERROR_404);
+      case 500:
+        throw new Error(ERROR_SERVER);
+      default:
+        const errorData = await res.json();
+        throw new Error(errorData.message);
     }
   }
 
+  /**
+   * Получает список фильмов с сервера.
+   * @returns {Promise<Array>} - Промис с массивом фильмов.
+   */
   async getMovies() {
-    const res = await fetch(`${this.baseUrl}/beatfilm-movies`, {
+    const response = await fetch(`${this.baseUrl}/beatfilm-movies`, {
       headers: this.headers,
     });
-    return this._checkResponse(res);
+    return this._checkResponse(response);
   }
 }
 
-const moviesApi = new MoviesApi(MOVIES_API_URL, {
-  'Content-Type': 'application/json',
+const moviesApi = new MoviesApi({
+  baseUrl: MOVIES_API_URL,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 export default moviesApi;

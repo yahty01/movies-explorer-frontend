@@ -1,45 +1,47 @@
 import {
   MAIN_API_URL as BASE_URL,
-  ERROR_EMAIL_EXISTS,
+  ERROR_EMAIL,
   ERROR_USER_LOGIN,
   ERROR_UNAUTHORIZED,
-  ERROR_USER_REGISTRATION,
+  ERROR_REGISTRATION,
 } from '../constants';
 
 import { checkResponse, options } from './configAuth';
 
-export const signup = (name, email, password) => {
+export const signup = async (name, email, password) => {
   const body = JSON.stringify({ name, email, password });
-  return fetch(`${BASE_URL}/signup`, { method: 'POST', ...options, body })
-    .then(checkResponse)
-    .catch((err) => {
-      if (err.status === 409) {
-        throw ERROR_EMAIL_EXISTS;
-      } else {
-        throw ERROR_USER_REGISTRATION;
-      }
-    });
+  try {
+    const response = await fetch(`${BASE_URL}/signup`, { method: 'POST', ...options, body });
+    return await checkResponse(response);
+  } catch (err) {
+    if (err.status === 409) {
+      throw ERROR_EMAIL;
+    } else {
+      throw ERROR_REGISTRATION;
+    }
+  }
 };
 
-export const signin = (email, password) => {
+export const signin = async (email, password) => {
   const body = JSON.stringify({ password, email });
-  return fetch(`${BASE_URL}/signin`, { method: 'POST', ...options, body })
-    .then(checkResponse)
-    .catch((err) => {
-      if (err.status === 401) {
-        throw ERROR_UNAUTHORIZED;
-      } else {
-        throw ERROR_USER_LOGIN;
-      }
-    });
+  try {
+    const response = await fetch(`${BASE_URL}/signin`, { method: 'POST', ...options, body });
+    return await checkResponse(response);
+  } catch (err) {
+    if (err.status === 401) {
+      throw ERROR_UNAUTHORIZED;
+    } else {
+      throw ERROR_USER_LOGIN;
+    }
+  }
 };
 
-export const signout = () => {
-  return fetch(`${BASE_URL}/signout`, { method: 'POST', ...options })
-    .then(checkResponse);
+export const signout = async () => {
+  const response = await fetch(`${BASE_URL}/signout`, { method: 'POST', ...options });
+  return checkResponse(response);
 };
 
-export const checkToken = () => {
-  return fetch(`${BASE_URL}/users/me`, { method: 'GET', ...options })
-    .then(checkResponse);
+export const checkToken = async () => {
+  const response = await fetch(`${BASE_URL}/users/me`, { method: 'GET', ...options });
+  return checkResponse(response);
 };

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // Утилиты
-import { AuthRoute, ProtectedRoute } from '../../utils/ProtectedRoute';
+import { AuthRoute, ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useApiErrorHandling } from '../../utils/useApiErrorHandling';
 import { useInfoMessageHandling } from '../../utils/useInfoMessageHandling';
 import * as auth from '../../utils/auth/auth';
