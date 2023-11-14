@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import moviesApi from '../../utils/MoviesApi';
-import { updateFilteredMovies, findScreenSize } from '../../utils/utils';
+import { filterMovies, getNumOfCards } from '../../utils/utils';
 import useLocalStorage from '../../utils/useLocalStorage';
 import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -12,7 +12,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
 function Movies({ showError, onDelete }) {
-  const [screenSize, setScreenSize] = useState(findScreenSize(window.innerWidth));
+  const [screenSize, setScreenSize] = useState(getNumOfCards(window.innerWidth));
   const [movies, setMovies] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [searchError, setSearchError] = useState(false);
@@ -55,7 +55,7 @@ function Movies({ showError, onDelete }) {
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        const newSize = findScreenSize(window.innerWidth);
+        const newSize = getNumOfCards(window.innerWidth);
         setScreenSize(newSize);
         setDisplayedMoviesCount(newSize.cards);
       }, 500);
@@ -128,7 +128,7 @@ function Movies({ showError, onDelete }) {
   const handleFilter = (check) => {
     setNoResults(false);
     if (!searchQuery && filteredMovies.length === 0) return;
-    const filtered = updateFilteredMovies(movies, searchQuery, check);
+    const filtered = filterMovies(movies, searchQuery, check);
     return filtered.length > 0 ? setFilteredMovies(filtered) : setNoResults(true);
   };
 

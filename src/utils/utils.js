@@ -1,29 +1,37 @@
-import { SCREEN_SIZE_MAP, SHORT_FILM_DURATION } from './constants';
+const SHORT_MOVIE_DURATION = 40;
+const HOUR_IN_MINUTES = 60;
 
-const updateFilteredMovies = (movies, query, checked) => {
+// Функция фильтрует список фильмов по запросу и длительности
+const filterMovies = (movies, query, shortOnly) => {
   const lowerCaseQuery = query.toLowerCase();
-  return movies.filter(
-    (movie) => 
-      (movie.nameRU.toLowerCase().includes(lowerCaseQuery) ||
-       movie.nameEN.toLowerCase().includes(lowerCaseQuery)) &&
-      (!checked || movie.duration <= SHORT_FILM_DURATION)
+
+  return movies.filter(({ nameRU, nameEN, duration }) => 
+    (nameRU.toLowerCase().includes(lowerCaseQuery) || 
+    nameEN.toLowerCase().includes(lowerCaseQuery)) && 
+    (!shortOnly || duration <= SHORT_MOVIE_DURATION)
   );
 };
 
-const findScreenSize = (screenWidth) => {
-  const sizes = [
-    { size: SCREEN_SIZE_MAP.xl, minWidth: 1200 },
-    { size: SCREEN_SIZE_MAP.lg, minWidth: 900 },
-    { size: SCREEN_SIZE_MAP.md, minWidth: 600 },
-    { size: SCREEN_SIZE_MAP.sm, minWidth: 0 },
+// Функция определяет количество карточек на основании ширины экрана
+const getNumOfCards = (screenWidth) => {
+  const breakpoints = [
+    { cards: { initial: 16, additional: 4 }, minWidth: 1200 },
+    { cards: { initial: 12, additional: 4 }, minWidth: 900 },
+    { cards: { initial: 8, additional: 4 }, minWidth: 600 },
+    { cards: { initial: 5, additional: 2 }, minWidth: 0 },
   ];
-  return sizes.find(({ minWidth }) => screenWidth >= minWidth).size;
+  
+  const { cards } = breakpoints.find(({ minWidth }) => screenWidth >= minWidth);
+  return cards;
 };
 
-const convertDuration = (number) => {
-  const hours = Math.floor(number / 60);
-  const minutes = number % 60;
+
+// Функция преобразует минуты в формат часы-минуты
+const formatDuration = (durationInMinutes) => {
+  const hours = Math.floor(durationInMinutes / HOUR_IN_MINUTES);
+  const minutes = durationInMinutes % HOUR_IN_MINUTES;
+
   return `${hours}ч ${minutes.toString().padStart(2, '0')}м`;
 };
 
-export { updateFilteredMovies, findScreenSize, convertDuration };
+export { filterMovies, getNumOfCards, formatDuration };

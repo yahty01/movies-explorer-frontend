@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 // Импорт API для работы с фильмами
 import mainApi from '../../utils/MainApi';
 // Утилиты для работы с фильтрацией фильмов
-import { updateFilteredMovies } from '../../utils/utils';
+import { filterMovies } from '../../utils/utils';
 // Импорты компонентов
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -58,7 +58,7 @@ function SavedMovies({ onDelete, showError }) {
   const handleFilter = (check) => {
     setNoResults(false);
     if (!searchQuery && filteredMovies.length === 0) return;
-    const filtered = updateFilteredMovies(savedMovies, searchQuery, check);
+    const filtered = filterMovies(savedMovies, searchQuery, check);
     return filtered.length > 0 ? setFilteredMovies(filtered) : setNoResults(true);
   };
 
