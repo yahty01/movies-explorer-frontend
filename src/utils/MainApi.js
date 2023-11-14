@@ -1,5 +1,5 @@
 import { fetchRequest } from "./request";
-import { MAIN_API_BASE_URL, MOVIE_API_BASE_URL } from "./constants";
+import { MAIN_API_URL, MOVIES_API_URL } from "./constants";
 
 // Определение класса MainApi для взаимодействия с API.
 class MainApi {
@@ -38,10 +38,10 @@ class MainApi {
           director,
           duration,
           description,
-          image: `${MOVIE_API_BASE_URL}${url}`, // вставляем полный URL изображения фильма
+          image: `${MOVIES_API_URL}${url}`, // вставляем полный URL изображения фильма
           nameRU,
           nameEN,
-          thumbnail: `${MOVIE_API_BASE_URL}${thumbnail}`, // вставляем полный URL миниатюры
+          thumbnail: `${MOVIES_API_URL}${thumbnail}`, // вставляем полный URL миниатюры
           movieId: id,
           trailerLink,
           year,
@@ -82,7 +82,7 @@ class MainApi {
 
 // Создание экземпляра класса с заданными параметрами, которые будут использоваться по умолчанию.
 const mainApi = new MainApi({
-  baseUrl: MAIN_API_BASE_URL,
+  baseUrl: MAIN_API_URL,
   headers: { "Content-Type": "application/json" },
 });
 

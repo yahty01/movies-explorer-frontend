@@ -1,19 +1,26 @@
-const MAIN_API_BASE_URL = 'https://api.kino.nomoredomainsrocks.ru';
-const MOVIE_API_BASE_URL = 'https://api.nomoreparties.co';
+// Урл для основного API
+const MAIN_API_URL = "https://api.kino.nomoredomainsrocks.ru";
 
-const SHORT_FILM_DURATION = 40;
+// Урл для API фильмов
+const MOVIES_API_URL = "https://api.nomoreparties.co";
 
-const EDIT_PROFILE_SUCCESS_MESSAGE = 'Данные успешно отредактированы!';
+// Ограничение по времени для короткометражного фильма
+const SHORT_MOVIE_DURATION_LIMIT = 40;
 
-const EMAIL_EXISTS_ERROR = 'Пользователь с таким email уже существует';
-const UPDATE_PROFILE_ERROR = 'При обновлении профиля произошла ошибка';
-const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка';
-const UNAUTHORIZED_ERROR = 'Вы ввели неправильную почту или пароль';
-const LOGIN_ERROR = 'При авторизации произошла ошибка';
-const DATA_NOT_CHANGED_ERROR = 'Такие данные уже используются. Измените данные.';
-const NOT_FOUND_ERROR = 'Страница по указанному маршруту не найдена';
-const SERVER_ERROR = 'Ошибка сервера';
+// Сообщение об успешном редактировании профиля
+const EDIT_PROFILE_SUCCESS_MSG = "Данные успешно отредактированы!";
 
+// Сообщения об ошибке
+const ERROR_DATA_NOT_CHANGED = "Такие данные уже используются. Измените данные.";
+const ERROR_USER_REGISTRATION = "При регистрации пользователя произошла ошибка";
+const ERROR_EMAIL_EXISTS = "Пользователь с таким email уже существует";
+const ERROR_PROFILE_UPDATE = "При обновлении профиля произошла ошибка";
+const ERROR_UNAUTHORIZED = "Вы ввели неправильную почту или пароль";
+const ERROR_404 = "Страница по указанному маршруту не найдена";
+const ERROR_USER_LOGIN = "При авторизации произошла ошибка";
+const ERROR_SERVER = "Ошибка сервера";
+
+// Карта количества карточек для различных размеров экрана
 const SCREEN_SIZE_MAP = {
   xl: { cards: 16, addCardsNumber: 4 },
   lg: { cards: 12, addCardsNumber: 3 },
@@ -22,17 +29,17 @@ const SCREEN_SIZE_MAP = {
 };
 
 export {
-  SHORT_FILM_DURATION,
-  EMAIL_EXISTS_ERROR,
-  REGISTER_ERROR,
-  LOGIN_ERROR,
-  UNAUTHORIZED_ERROR,
-  UPDATE_PROFILE_ERROR,
-  MAIN_API_BASE_URL,
-  MOVIE_API_BASE_URL,
+  MAIN_API_URL,
+  MOVIES_API_URL,
+  SHORT_MOVIE_DURATION_LIMIT as SHORT_FILM_DURATION,
+  EDIT_PROFILE_SUCCESS_MSG,
+  ERROR_EMAIL_EXISTS,
+  ERROR_USER_REGISTRATION,
+  ERROR_USER_LOGIN,
+  ERROR_UNAUTHORIZED,
+  ERROR_PROFILE_UPDATE,
+  ERROR_DATA_NOT_CHANGED,
+  ERROR_404,
+  ERROR_SERVER,
   SCREEN_SIZE_MAP,
-  DATA_NOT_CHANGED_ERROR,
-  NOT_FOUND_ERROR,
-  SERVER_ERROR,
-  EDIT_PROFILE_SUCCESS_MESSAGE,
 };

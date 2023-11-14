@@ -10,7 +10,7 @@ import { useApiErrorHandling } from '../../utils/useApiErrorHandling';
 import { useInfoMessageHandling } from '../../utils/useInfoMessageHandling';
 import * as auth from '../../utils/auth';
 import mainApi from '../../utils/MainApi';
-import { EDIT_PROFILE_SUCCESS_MESSAGE } from '../../utils/constants';
+import { EDIT_PROFILE_SUCCESS_MSG } from '../../utils/constants';
 
 // Компоненты
 import Main from '../Main/Main';
@@ -97,7 +97,7 @@ function App() {
     try {
       const updatedUser = await mainApi.changeUserInfo(newUserInfo);
       setCurrentUser(updatedUser);
-      showInfoMessage(EDIT_PROFILE_SUCCESS_MESSAGE);
+      showInfoMessage(EDIT_PROFILE_SUCCESS_MSG);
     } catch (err) {
       setErrorAuthMessage(err);
     } finally {

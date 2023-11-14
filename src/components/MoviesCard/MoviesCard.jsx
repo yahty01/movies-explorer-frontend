@@ -1,6 +1,6 @@
 import './MoviesCard.scss';
 import { useLocation } from 'react-router-dom';
-import { MOVIE_API_BASE_URL } from '../../utils/constants';
+import { MOVIES_API_URL } from '../../utils/constants';
 import { convertDuration } from '../../utils/utils';
 
 function MoviesCard({ movie, onSave, onDelete }) {
@@ -21,7 +21,7 @@ function MoviesCard({ movie, onSave, onDelete }) {
     <li className='movie-card'>
       <a href={`${movie.trailerLink}`} className='link' target='_blank' rel='noreferrer'>
         <img
-          src={isSavedMoviesPage ? `${movie.image}` : `${MOVIE_API_BASE_URL}${movie.image.url}`}
+          src={isSavedMoviesPage ? `${movie.image}` : `${MOVIES_API_URL}${movie.image.url}`}
           className='movie-card__image'
           alt={movie.nameRU}
         />{' '}

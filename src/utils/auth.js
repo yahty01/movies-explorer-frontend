@@ -1,9 +1,9 @@
 import {
-  MAIN_API_BASE_URL as BASE_URL,
-  EMAIL_EXISTS_ERROR,
-  LOGIN_ERROR,
-  UNAUTHORIZED_ERROR,
-  REGISTER_ERROR,
+  MAIN_API_URL as BASE_URL,
+  ERROR_EMAIL_EXISTS,
+  ERROR_USER_LOGIN,
+  ERROR_UNAUTHORIZED,
+  ERROR_USER_REGISTRATION,
 } from './constants';
 
 const checkResponse = (res) => {
@@ -36,9 +36,9 @@ export const signup = (name, email, password) => {
       return res.json();
     }
     if (res.status === 409) {
-      return Promise.reject(EMAIL_EXISTS_ERROR);
+      return Promise.reject(ERROR_EMAIL_EXISTS);
     }
-    return Promise.reject(REGISTER_ERROR);
+    return Promise.reject(ERROR_USER_REGISTRATION);
   });
 };
 
@@ -52,9 +52,9 @@ export const signin = (email, password) => {
       return res.json();
     }
     if (res.status === 401) {
-      return Promise.reject(UNAUTHORIZED_ERROR);
+      return Promise.reject(ERROR_UNAUTHORIZED);
     }
-    return Promise.reject(LOGIN_ERROR);
+    return Promise.reject(ERROR_USER_LOGIN);
   });
 };
 

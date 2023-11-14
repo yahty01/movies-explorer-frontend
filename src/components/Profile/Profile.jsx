@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-import { DATA_NOT_CHANGED_ERROR } from "../../utils/constants";
+import { ERROR_DATA_NOT_CHANGED } from "../../utils/constants";
 
 import Header from "../Header/Header";
 
@@ -49,7 +49,7 @@ function Profile({
       prevNameRef.current.value === currentUser?.name &&
       prevEmailRef.current.value === currentUser?.email
     ) {
-      setErrorAuthMessage(DATA_NOT_CHANGED_ERROR);
+      setErrorAuthMessage(ERROR_DATA_NOT_CHANGED);
     }
   };
 
