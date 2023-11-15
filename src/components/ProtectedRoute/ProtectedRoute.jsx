@@ -1,25 +1,25 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const ProtectedRoute = ({ element: Component, ...props }) => {
-    const { loggedIn } = useContext(CurrentUserContext);
+const ProtectedRoute = ({ children }) => {
+  const { loggedIn } = useContext(CurrentUserContext);
 
-    return (
-        loggedIn 
-            ? <Component {...props} />
-            : <Navigate to='/' replace />
-    );
+  if (!loggedIn) {
+    return <Navigate to='/' replace />;
+  }
+
+  return children;
 };
 
-const AuthRoute = ({ element: Component, ...props }) => {
-    const { loggedIn } = useContext(CurrentUserContext);
+const AuthRoute = ({ children }) => {
+  const { loggedIn } = useContext(CurrentUserContext);
 
-    return (
-        !loggedIn 
-            ? <Component {...props} />
-            : <Navigate to='/movies' replace />
-    );
+  if (loggedIn) {
+    return <Navigate to='/movies' replace />;
+  }
+
+  return children;
 };
 
-export { ProtectedRoute, AuthRoute };
+export {ProtectedRoute, AuthRoute}
