@@ -31,45 +31,31 @@ function Movies({ showError, onDelete }) {
   const moviesToShow = filteredMovies.slice(0, displayedMoviesCount);
 
   useEffect(() => {
-    async function fetchMoviesData() {
-      try {
-        setIsLoading(true);
-        const [allMovies, userSavedMovies] = await Promise.all([
-          moviesApi.getMovies(),
-          mainApi.getAllMovies(),
-        ]);
-
-        const updatedMovies = allMovies.map((movie) => {
-          const matchingSavedMovie = userSavedMovies.find(
-            (saved) => saved.movieId === movie.id
-          );
+    setIsLoading(true);
+    Promise.all([moviesApi.getMovies(), mainApi.getAllMovies()])
+      .then(([moviesData, savedMovies]) => {
+        const moviesWithSavedFlag = moviesData.map((movie) => {
+          const savedMovie = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
           return {
             ...movie,
-            isSaved: !!matchingSavedMovie,
-            _id: matchingSavedMovie ? matchingSavedMovie._id : null,
+            isSaved: Boolean(savedMovie),
+            _id: savedMovie ? savedMovie._id : null,
           };
         });
-
-        setMovies(updatedMovies);
-      } catch (error) {
+        setMovies(moviesWithSavedFlag);
+      })
+      .catch((error) => {
         showError(error);
-      } finally {
+      })
+      .finally(() => {
         setIsLoading(false);
-      }
-    }
-
-    fetchMoviesData();
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    function updateDisplayedMoviesCount() {
-      const cardCount = screenSize.cards;
-      setDisplayedMoviesCount(cardCount);
-    }
-
-    updateDisplayedMoviesCount();
-  }, [screenSize.cards]); // Зависимость: количество карточек в зависимости от размера экрана
+    setDisplayedMoviesCount(screenSize.cards);
+  }, [screenSize.cards]);
 
   useEffect(() => {
     let resizeTimeout;
