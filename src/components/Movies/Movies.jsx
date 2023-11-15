@@ -30,57 +30,74 @@ function Movies({ showError, onDelete }) {
   );
   const moviesToShow = filteredMovies.slice(0, displayedMoviesCount);
 
-  useEffect(() => {
-    setIsLoading(true);
-    Promise.all([moviesApi.getMovies(), mainApi.getAllMovies()])
-      .then(([moviesData, savedMovies]) => {
-        const moviesWithSavedFlag = moviesData.map((movie) => {
-          const savedMovie = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+useEffect(() => {
+    async function fetchMoviesData() {
+      try {
+        setIsLoading(true);
+        const [allMovies, userSavedMovies] = await Promise.all([
+          moviesApi.getMovies(),
+          mainApi.getAllMovies()
+        ]);
+  
+        const updatedMovies = allMovies.map(movie => {
+          const matchingSavedMovie = userSavedMovies.find(saved => saved.movieId === movie.id);
           return {
             ...movie,
-            isSaved: Boolean(savedMovie),
-            _id: savedMovie ? savedMovie._id : null,
+            isSaved: !!matchingSavedMovie,
+            _id: matchingSavedMovie ? matchingSavedMovie._id : null,
           };
         });
-        setMovies(moviesWithSavedFlag);
-      })
-      .catch((error) => {
+  
+        setMovies(updatedMovies);
+      } catch (error) {
         showError(error);
-      })
-      .finally(() => {
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
+  
+    fetchMoviesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    setDisplayedMoviesCount(screenSize.cards);
-  }, [screenSize.cards]);
+    function updateDisplayedMoviesCount() {
+      const cardCount = screenSize.cards;
+      setDisplayedMoviesCount(cardCount);
+    }
+  
+    updateDisplayedMoviesCount();
+  }, [screenSize.cards]); // Зависимость: количество карточек в зависимости от размера экрана
+  
 
   useEffect(() => {
-    let resizeTimeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        const newSize = findScreenSize(window.innerWidth);
-        setScreenSize(newSize);
-        setDisplayedMoviesCount(newSize.cards);
-      }, 500);
-    };
-
-    window.addEventListener('resize', handleResize);
+    let resizeTimer;
+    const RESIZE_DELAY = 500;
+  
+    function updateSize() {
+      const newSize = findScreenSize(window.innerWidth);
+      setScreenSize(newSize);
+      setDisplayedMoviesCount(newSize.cards);
+    }
+  
+    function onWindowResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateSize, RESIZE_DELAY);
+    }
+  
+    window.addEventListener('resize', onWindowResize);
+    
+    // Очистка подписки на событие
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', onWindowResize);
     };
-  }, []);
+  }, []);  
 
   useEffect(() => {
     function updateMoviesWithSavedStatus() {
-      const moviesWithSavedStatus = filteredMovies.map((currentMovie) => {
-        const matchedMovieInAll = movies.find(
-          (movie) => movie.id === currentMovie.id
-        );
-        return matchedMovieInAll
+      const moviesWithSavedStatus = filteredMovies.map(currentMovie => {
+        const matchedMovieInAll = movies.find(movie => movie.id === currentMovie.id);
+        return matchedMovieInAll 
           ? {
               ...currentMovie,
               isSaved: matchedMovieInAll.isSaved || false,
@@ -88,13 +105,13 @@ function Movies({ showError, onDelete }) {
             }
           : currentMovie;
       });
-
+  
       setFilteredMovies(moviesWithSavedStatus);
     }
-
+  
     updateMoviesWithSavedStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movies]); // Зависимость от общего списка фильмов
+  }, [movies]); // Зависимость от общего списка фильмов  
 
   const handleSaveMovie = async (movieToSave) => {
     try {
