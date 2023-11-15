@@ -1,5 +1,5 @@
 // В этом файле мы импортируем константы и функции из configUtils и используем их в наших утилитах
-import { SHORT_MOVIE_DURATION, convertMins } from "./configUtils";
+import {SIZE_MAP, SHORT_MOVIE_DURATION, convertMins } from "./configUtils";
 
 const filterMovies = (movies, query, shortOnly) => {
   const lowerCaseQuery = query.toLowerCase();
@@ -12,13 +12,13 @@ const filterMovies = (movies, query, shortOnly) => {
 
 const findScreenSize = (screenWidth) => {
   if (screenWidth >= 1200) {
-    return { cards: 16, addCardsNumber: 4 };
+    return SIZE_MAP.xl;
   } else if (screenWidth >= 900) {
-    return { cards: 12, addCardsNumber: 3 };
+    return SIZE_MAP.lg;
   } else if (screenWidth >= 600) {
-    return { cards: 8, addCardsNumber: 4 };
+    return SIZE_MAP.md;
   } else {
-    return { cards: 5, addCardsNumber: 2 };
+    return SIZE_MAP.sm;
   }
 };
 
