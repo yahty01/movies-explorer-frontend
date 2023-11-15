@@ -37,10 +37,10 @@ class MoviesApi {
    * @returns {Promise<Array>} - Промис с массивом фильмов.
    */
   async getMovies() {
-    const response = await fetch(`${this.baseUrl}/beatfilm-movies`, {
+    const res = await fetch(`${this.baseUrl}/beatfilm-movies`, {
       headers: this.headers,
     });
-    return this._checkResponse(response);
+    return this._checkResponse(res);
   }
 }
 
