@@ -72,25 +72,19 @@ function Movies({ showError, onDelete }) {
   }, [screenSize.cards]); // Зависимость: количество карточек в зависимости от размера экрана
 
   useEffect(() => {
-    let resizeTimer;
-    const RESIZE_DELAY = 500;
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const newSize = findScreenSize(window.innerWidth);
+        setScreenSize(newSize);
+        setDisplayedMoviesCount(newSize.cards);
+      }, 500);
+    };
 
-    function updateSize() {
-      const newSize = findScreenSize(window.innerWidth);
-      setScreenSize(newSize);
-      setDisplayedMoviesCount(newSize.cards);
-    }
-
-    function onWindowResize() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateSize, RESIZE_DELAY);
-    }
-
-    window.addEventListener("resize", onWindowResize);
-
-    // Очистка подписки на событие
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", onWindowResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
