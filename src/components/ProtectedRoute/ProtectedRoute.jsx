@@ -1,12 +1,25 @@
 import { useContext } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Navigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const ProtectedRouteElement = ({ element: Component, ...props }) => {
-  const { loggeIn } = useContext(CurrentUserContext);
+const ProtectedRoute = ({ element: Component, ...props }) => {
+    const { loggedIn } = useContext(CurrentUserContext);
 
-  return (
-    loggeIn ? <Component {...props} /> : <Navigate to="/" replace />
-)};
+    return (
+        loggedIn 
+            ? <Component {...props} />
+            : <Navigate to='/' replace />
+    );
+};
 
-export default ProtectedRouteElement;
+const AuthRoute = ({ element: Component, ...props }) => {
+    const { loggedIn } = useContext(CurrentUserContext);
+
+    return (
+        !loggedIn 
+            ? <Component {...props} />
+            : <Navigate to='/movies' replace />
+    );
+};
+
+export { ProtectedRoute, AuthRoute };
