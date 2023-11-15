@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // Утилиты
-import { AuthRoute, ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { useApiErrorHandling } from '../../hooks/useApiErrorHandling';
 import { useInfoMessageHandling } from '../../hooks/useInfoMessageHandling';
 import * as auth from '../../utils/auth/auth';
@@ -114,8 +114,8 @@ function App() {
       <div className='App'>
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/signup' element={<AuthRoute element={Register} onSignUp={handleSignUp} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage} />} />
-          <Route path='/signin' element={<AuthRoute element={Login} onSignIn={handleSignIn} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage} />} />
+          <Route path='/signup' element={<ProtectedRoute element={Register} onSignUp={handleSignUp} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage} />} />
+          <Route path='/signin' element={<ProtectedRoute element={Login} onSignIn={handleSignIn} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage} />} />
           <Route path='/movies' element={<ProtectedRoute element={Movies} showError={showApiError} onDelete={handleDeleteButtonClick} />} />
           <Route path='/saved-movies' element={<ProtectedRoute element={SavedMovies} showError={showApiError} onDelete={handleDeleteButtonClick} />} />
           <Route path='/profile' element={<ProtectedRoute element={Profile} onSignOut={handleSignOut} onChangeUserInfo={handleChangeUserInfo} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage} />} />

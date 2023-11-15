@@ -1,23 +1,12 @@
-import { useContext, useMemo } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ element: Component, ...props }) => {
-  const { loggedIn } = useContext(CurrentUserContext);
-  const routeElement = useMemo(() => (
-    loggedIn ? <Component {...props} /> : <Navigate to='/' replace />
-  ), [loggedIn, props]); 
+const ProtectedRouteElement = ({ element: Component, ...props }) => {
+  const { loggeIn } = useContext(CurrentUserContext);
 
-  return routeElement;
-};
+  return (
+    loggeIn ? <Component {...props} /> : <Navigate to="/" replace />
+)};
 
-const AuthRoute = ({ element: Component, ...props }) => {
-  const { loggedIn } = useContext(CurrentUserContext);
-  const routeElement = useMemo(() => (
-    !loggedIn ? <Component {...props} /> : <Navigate to='/movies' replace />
-  ), [loggedIn, props]); 
-
-  return routeElement;
-};
-
-export { ProtectedRoute, AuthRoute };
+export default ProtectedRouteElement;
