@@ -33,65 +33,87 @@ function Profile({
   }, [currentUser]);
 
   useEffect(() => {
-    if (errorMessage) {
-      setIsEditing(true);
-    }
-  }, [errorMessage]);
+    const enableEditModeIfError = () => {
+      if (errorMessage) {
+        setIsEditing(true);
+      }
+    };
+  
+    enableEditModeIfError();
+  }, [errorMessage]);  
 
   useEffect(() => {
-    return () => {
+    const cleanupProfile = () => {
       setErrorAuthMessage("");
       setIsEditing(false);
     };
+  
+    return cleanupProfile;
   }, [setErrorAuthMessage]);
+  
 
-  const handleChangeInput = (e) => {
-    setErrorAuthMessage("");
-    handleChange(e);
-    if (
-      prevNameRef.current.value === currentUser?.name &&
-      prevEmailRef.current.value === currentUser?.email
-    ) {
-      setErrorAuthMessage(ERROR_DATA_NOT_CHANGED);
-    }
+  const handleChangeInput = (event) => {
+    const resetError = () => setErrorAuthMessage("");
+    const updateFormValues = () => handleChange(event);
+    const checkForChanges = () => {
+      const nameNotChanged = prevNameRef.current.value === currentUser?.name;
+      const emailNotChanged = prevEmailRef.current.value === currentUser?.email;
+      if (nameNotChanged && emailNotChanged) {
+        setErrorAuthMessage(ERROR_DATA_NOT_CHANGED);
+      }
+    };
+  
+    resetError();
+    updateFormValues();
+    checkForChanges();
   };
+  
 
   const handleEditClick = () => setIsEditing(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onChangeUserInfo({
-      name: values.name || name,
-      email: values.email || email,
-    });
-    setIsEditing(false);
-    setIsValid(false);
+  const handleSubmit  = (event) => {
+    event.preventDefault();
+  
+    const updateUserInfo = () => {
+      const updatedInfo = {
+        name: values.name || name,
+        email: values.email || email
+      };
+      onChangeUserInfo(updatedInfo);
+    };
+  
+    const resetEditingState = () => {
+      setIsEditing(false);
+      setIsValid(false);
+    };
+  
+    updateUserInfo();
+    resetEditingState();
   };
-
-  const renderNameInput = () => {
-    if (isEditing) {
-      return (
-        <div className="profile__field-container">
-          <input
-            type="text"
-            name="name"
-            minLength="2"
-            pattern="^[A-Za-zА-Яа-я\s\-]+$"
-            title="Имя должно содержать только латиницу, кириллицу, пробел или дефис"
-            value={values.name || name}
-            ref={prevNameRef}
-            className={`profile__field-name ${
-              errors.name && "profile__field-name_error"
-            }`}
-            onChange={handleChangeInput}
-          />
-          <span className="profile__error-message">{errors.name}</span>
-        </div>
-      );
-    } else {
-      return <span className="profile__name-value">{name}</span>;
-    }
+  
+  const NameInputField = () => {
+    return isEditing ? (
+      <div className="profile__field-container">
+        <input
+          type="text"
+          name="name"
+          minLength="2"
+          pattern="^[A-Za-zА-Яа-я\s\-]+$"
+          title="Имя должно содержать только латиницу, кириллицу, пробел или дефис"
+          value={values.name || name}
+          ref={prevNameRef}
+          className={`profile__field-name ${
+            errors.name ? "profile__field-name_error" : ""
+          }`}
+          onChange={handleChangeInput}
+        />
+        <span className="profile__error-message">{errors.name}</span>
+      </div>
+    ) : (
+      <span className="profile__name-value">{name}</span>
+    );
   };
+  
 
   const renderEmailInput = () => {
     if (isEditing) {
@@ -127,7 +149,7 @@ function Profile({
             <label htmlFor="name" className="profile__name-label">
               Имя
             </label>
-            {renderNameInput()}
+            {NameInputField()}
           </div>
           <div className="profile__email-row">
             <label htmlFor="email" className="profile__email-label">

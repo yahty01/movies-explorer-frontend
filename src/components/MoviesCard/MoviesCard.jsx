@@ -7,12 +7,10 @@ function MoviesCard({ movie, onSave, onDelete }) {
   const location = useLocation();
 
   const handleSaveButtonClick = () => {
-    if (movie.isSaved) {
-      onDelete(movie._id);
-    } else {
-      onSave(movie);
-    }
+    const action = movie.isSaved ? onDelete : onSave;
+    action(movie.isSaved ? movie._id : movie);
   };
+  
 
   const handleDeleteButtonClick = () => onDelete(movie._id);
 
