@@ -1,5 +1,5 @@
 // В этом файле мы импортируем константы и функции из configUtils и используем их в наших утилитах
-import { breakpoints, SHORT_MOVIE_DURATION, convertMins } from "./configUtils";
+import { SHORT_MOVIE_DURATION, convertMins } from "./configUtils";
 
 const filterMovies = (movies, query, shortOnly) => {
   const lowerCaseQuery = query.toLowerCase();
@@ -10,9 +10,16 @@ const filterMovies = (movies, query, shortOnly) => {
   );
 };
 
-const getNumOfCards = (screenWidth) => {
-  const { cards } = breakpoints.find(({ minWidth }) => screenWidth >= minWidth);
-  return cards.initial;
+const findScreenSize = (screenWidth) => {
+  if (screenWidth >= 1200) {
+    return { cards: 16, addCardsNumber: 4 };
+  } else if (screenWidth >= 900) {
+    return { cards: 12, addCardsNumber: 3 };
+  } else if (screenWidth >= 600) {
+    return { cards: 8, addCardsNumber: 4 };
+  } else {
+    return { cards: 5, addCardsNumber: 2 };
+  }
 };
 
-export { filterMovies, getNumOfCards, convertMins };
+export { filterMovies, findScreenSize, convertMins };

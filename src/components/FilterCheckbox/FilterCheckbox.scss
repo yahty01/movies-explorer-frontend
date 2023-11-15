@@ -45,7 +45,7 @@
     }
   }
 
-  &__input[type='checkbox']:checked + .filter-checkbox__slider {
+  &__input[type='checkbox']:checked + &__slider {
     background-color: #4caf50;
 
     &::before {

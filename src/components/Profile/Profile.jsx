@@ -1,11 +1,8 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-
 import { ERROR_DATA_NOT_CHANGED } from "../../utils/constants";
-
 import Header from "../Header/Header";
-
 import "./Profile.scss";
 
 function Profile({
@@ -14,15 +11,21 @@ function Profile({
   errorMessage,
   setErrorAuthMessage,
 }) {
+  const { currentUser, isLoading } = useContext(CurrentUserContext);
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
-  const { currentUser, isLoading } = useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, setIsValid } =
-    useFormValidation();
 
   const prevNameRef = useRef(name);
   const prevEmailRef = useRef(email);
+
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    setIsValid,
+  } = useFormValidation();
 
   useEffect(() => {
     setName(currentUser?.name);
@@ -65,6 +68,55 @@ function Profile({
     setIsValid(false);
   };
 
+  const renderNameInput = () => {
+    if (isEditing) {
+      return (
+        <div className="profile__field-container">
+          <input
+            type="text"
+            name="name"
+            minLength="2"
+            pattern="^[A-Za-zА-Яа-я\s\-]+$"
+            title="Имя должно содержать только латиницу, кириллицу, пробел или дефис"
+            value={values.name || name}
+            ref={prevNameRef}
+            className={`profile__field-name ${
+              errors.name && "profile__field-name_error"
+            }`}
+            onChange={handleChangeInput}
+          />
+          <span className="profile__error-message">{errors.name}</span>
+        </div>
+      );
+    } else {
+      return <span className="profile__name-value">{name}</span>;
+    }
+  };
+
+  const renderEmailInput = () => {
+    if (isEditing) {
+      return (
+        <div className="profile__field-container">
+          <input
+            type="email"
+            name="email"
+            value={values.email || email}
+            ref={prevEmailRef}
+            className={`profile__field-email ${
+              errors.email && "profile__field-email_error"
+            }`}
+            onChange={handleChangeInput}
+            pattern="^\S+@\S+\.\S+$"
+            title="Некорректный формат почты"
+          />
+          <span className="profile__error-message">{errors.email}</span>
+        </div>
+      );
+    } else {
+      return <span className="email-value">{email}</span>;
+    }
+  };
+
   return (
     <>
       <Header dark={true} />
@@ -75,50 +127,13 @@ function Profile({
             <label htmlFor="name" className="profile__name-label">
               Имя
             </label>
-            {isEditing ? (
-              <div className="profile__field-container">
-                <input
-                  type="text"
-                  name="name"
-                  minLength="2"
-                  pattern="^[A-Za-zА-Яа-я\s\-]+$"
-                  title="Имя должно содержать только латиницу, кириллицу, пробел или дефис"
-                  value={values.name || name}
-                  ref={prevNameRef}
-                  className={`profile__field-name ${
-                    errors.name && "profile__field-name_error"
-                  }`}
-                  onChange={handleChangeInput}
-                />
-                <span className="profile__error-message">{errors.name}</span>
-              </div>
-            ) : (
-              <span className="profile__name-value">{name}</span>
-            )}
+            {renderNameInput()}
           </div>
           <div className="profile__email-row">
             <label htmlFor="email" className="profile__email-label">
               E-mail
             </label>
-            {isEditing ? (
-              <div className="profile__field-container">
-                <input
-                  type="email"
-                  name="email"
-                  value={values.email || email}
-                  ref={prevEmailRef}
-                  className={`profile__field-email ${
-                    errors.email && "profile__field-email_error"
-                  }`}
-                  onChange={handleChangeInput}
-                  pattern="^\S+@\S+\.\S+$"
-                  title="Некорректный формат почты"
-                />
-                <span className="profile__error-message">{errors.email}</span>
-              </div>
-            ) : (
-              <span className="email-value">{email}</span>
-            )}
+            {renderEmailInput()}
           </div>
 
           {isEditing ? (

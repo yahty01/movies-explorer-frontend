@@ -1,10 +1,12 @@
 .login {
+  width: 100%;
+
   &__container {
-    text-align: left;
-    padding-top: 70px;
+    width: 100%;
     max-width: 396px;
     margin: 0 auto;
-    width: 100%;
+    padding-top: 70px;
+    text-align: left;
   }
 
   &__form {
@@ -15,33 +17,33 @@
   }
 
   &__heading {
+    font-size: 24px;
+    font-weight: 500;
     margin: 40px 0;
     padding: 0;
     color: #fff;
-    font-size: 24px;
-    font-weight: 500;
   }
 
   &__label {
-    margin: 0;
-    padding: 0 0 10px;
     display: block;
-    color: #8b8b8b;
     font-size: 10px;
     font-weight: 400;
+    margin: 0;
+    padding: 0 0 10px;
+    color: #8b8b8b;
   }
 
   &__fieldset {
+    border: none;
     margin: 0;
     padding: 0;
-    border: none;
   }
 
   &__field {
-    margin: 0 0 5px;
-    padding: 15px;
     width: 100%;
     height: 46px;
+    padding: 15px;
+    margin: 0 0 5px;
     box-sizing: border-box;
     background-color: #2f2f2f;
     border-radius: 8px;
@@ -100,10 +102,10 @@
   }
 
   &__button {
-    padding: 0;
-    background-color: #4285f4;
     width: 100%;
     height: 45px;
+    padding: 0;
+    background-color: #4285f4;
     color: #fff;
     font-size: 14px;
     font-weight: 500;
@@ -118,15 +120,16 @@
   }
 }
 
+/* Медиа-запрос для максимальной ширины экрана 600px */
 @media screen and (max-width: 600px) {
   .button_type_login {
     font-size: 12px;
   }
 
   .login {
-    text-align: center;
     margin: 0 auto;
     padding-top: 56px;
+    text-align: center;
 
     &__button {
       font-size: 12px;

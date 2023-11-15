@@ -4,13 +4,14 @@
   flex-basis: 59.2%;
 
   &__link {
-    color: white;
-    text-decoration: none;
+    color: #fff;
     cursor: pointer;
-    margin-right: 30px;
     font-size: 12px;
-    line-height: 16px;
     font-weight: 400;
+    letter-spacing: .9px;
+    line-height: 16px;
+    margin: 0 16px 0 0;
+    padding: 0;
 
     &:last-child {
       margin: 0;
@@ -30,28 +31,28 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    text-decoration: none;
     padding-left: 11px;
     width: 100px;
     height: 32px;
     font-size: 13px;
-    font-style: normal;
     font-weight: 500;
     line-height: 12px;
-    text-decoration: none;
+    font-style: normal;
     color: #fff;
     background-image: url('../../images/account.svg');
-    background-repeat: no-repeat;
     background-size: 26px;
     background-position: center right 0;
+    background-repeat: no-repeat;
   }
 
   &__burger {
     background-image: url('../../images/burger.svg');
     background-size: 40px;
+    display: none;
     background-position: center right;
     background-repeat: no-repeat;
     padding: 0;
-    display: none;
     width: 44px;
     height: 44px;
     background-color: transparent;
@@ -60,9 +61,9 @@
 
   &__overlay {
     position: fixed;
+    width: 100%;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
@@ -83,13 +84,13 @@
     &_active {
       position: fixed;
       display: flex;
+      background-color: #202020;
       flex-direction: column;
       justify-content: space-between;
-      background-color: #202020;
       right: 0;
       top: 0;
-      height: 100%;
       width: 68vw;
+      height: 100%;
       z-index: 1;
     }
     &__links,
@@ -99,28 +100,28 @@
     &_active .navigation__links {
       margin-top: 162px;
       display: flex;
-      row-gap: 28px;
       flex-direction: column;
+      row-gap: 28px;
     }
     &_active .navigation__link {
-      font-size: 18px;
       margin: 0;
+      font-size: 18px;
       font-weight: 500;
       line-height: normal;
       letter-spacing: -0.3px;
     }
     &_active .navigation__burger-close {
       position: absolute;
-      display: block;
       top: 23px;
+      display: block;
       right: 27px;
       height: 30px;
       width: 22px;
       border: none;
       z-index: 1;
       background-image: url('../../images/close.svg');
-      background-repeat: no-repeat;
       background-position: center;
+      background-repeat: no-repeat;
       background-size: cover;
       background-color: transparent;
     }
@@ -129,10 +130,10 @@
 
       &::before {
         position: absolute;
-        width: 100%;
-        bottom: -8px;
         left: 0;
         height: 2px;
+        width: 100%;
+        bottom: -8px;
         background-color: #fff;
         content: '';
       }
@@ -144,8 +145,8 @@
       width: 100%;
       text-align: center;
       max-width: 100px;
-      margin: 0 auto 90px;
       padding: 0 0 0 11px;
+      margin: 0 auto 90px;
       background-position: center right 5px;
     }
   }

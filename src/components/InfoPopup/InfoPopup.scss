@@ -1,22 +1,24 @@
 .info-popup {
-  color: #fff;
   position: fixed;
   top: 10px;
   right: 10px;
   max-width: 50%;
-  background: #2be080;
-  display: flex;
-  justify-content: left;
   padding: 10px;
+  display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: left;
+  background: #2be080;
   border-radius: 0.5rem;
   transition: opacity 2s ease;
+  color: #fff;
 
+  /* Изображение внутри попапа */
   &__image {
     width: 20px;
   }
 
+  /* Текстовое сообщение внутри попапа */
   &__message {
     margin: 0;
     padding: 0;

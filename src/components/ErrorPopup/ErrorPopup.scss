@@ -3,11 +3,11 @@
   top: 10px;
   right: 10px;
   max-width: 50%;
-  background: #df5151;
   display: flex;
-  justify-content: left;
-  padding: 10px;
+  background: #df5151;
   gap: 10px;
+  padding: 10px;
+  justify-content: left;
   align-items: center;
   border-radius: 0.5rem;
   transition: all 0.8s;
@@ -17,8 +17,8 @@
   }
 
   &__message {
+    font-size: 0.8em;
     margin: 0;
     padding: 0;
-    font-size: 0.8em;
   }
 }
