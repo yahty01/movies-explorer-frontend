@@ -1,46 +1,132 @@
-// Импорт React и вспомогательных библиотек
-import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-// Импорт компонентов страниц
-import Main from '../Main/Main';
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Register from '../Register/Register';
-import Login from '../Login/Login';
-import Profile from '../Profile/Profile';
-import Signout from '../Signout/Signout';
-import NotFound from '../NotFound/NotFound';
+// Контексты
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-// Импорт вспомогательных компонентов и стилей
-import ProtectedRouteElement from '../../utils/ProtectedRoute';
-import './App.scss';
+// Утилиты
+import { AuthRoute, ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import { useApiErrorHandling } from "../../hooks/useApiErrorHandling";
+import { useInfoMessageHandling } from "../../hooks/useInfoMessageHandling";
+import * as auth from "../../utils/auth/auth";
+import mainApi from "../../utils/api/MainApi";
+import { EDIT_PROFILE_SUCCESS_MSG } from "../../utils/constants";
+
+// Компоненты
+import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
+import NotFound from "../NotFound/NotFound";
+import ErrorMessage from "../ErrorPopup/ErrorPopup";
+import InfoPopup from "../InfoPopup/InfoPopup";
+
+// Стили
+import "./App.scss";
 
 function App() {
-  // Состояние для отслеживания статуса входа пользователя
-  const [loggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorAuthMessage, setErrorAuthMessage] = useState("");
+  const [errorApiMessage, showApiError] = useApiErrorHandling();
+  const [infoMessage, showInfoMessage] = useInfoMessageHandling();
+  const navigate = useNavigate();
 
-  // Массив маршрутов
-  const routes = [
-    { path: '/', element: <Main /> },
-    { path: '/signup', element: <Register /> },
-    { path: '/signin', element: <Login /> },
-    { path: '/signout', element: <Signout /> },
-    { path: '/movies', element: <ProtectedRouteElement element={Movies} loggedIn={loggedIn} /> },
-    { path: '/saved-movies', element: <ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} /> },
-    { path: '/profile', element: <ProtectedRouteElement element={Profile} loggedIn={loggedIn} /> },
-    { path: '*', element: <NotFound /> },
-  ];
+  useEffect(() => {
+    (async () => {
+      try {
+        const user = await auth.checkToken();
+        setLoggedIn(true);
+        setCurrentUser(user);
+      } catch {
+        setLoggedIn(false);
+      }
+    })();
+  }, []);
+
+  const handleSuccessAuthAction = (user, resetForm) => {
+    setErrorAuthMessage("");
+    resetForm();
+    setLoggedIn(true);
+    setCurrentUser(user);
+    navigate("/movies", { replace: true });
+  };
+
+  const handleSignUp = async (name, email, password, resetForm) => {
+    setIsLoading(true);
+    try {
+      const user = await auth.signup(name, email, password);
+      handleSuccessAuthAction(user, resetForm);
+    } catch (err) {
+      setErrorAuthMessage(err.message || 'Произошла ошибка');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignIn = async (email, password, resetForm) => {
+    setIsLoading(true);
+    try {
+      const user = await auth.signin(email, password);
+      handleSuccessAuthAction(user, resetForm);
+    } catch (err) {
+      setErrorAuthMessage(err.message || 'Произошла ошибка');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    setIsLoading(true);
+    try {
+      await auth.signout();
+      localStorage.clear();
+      setLoggedIn(false);
+    } catch (error) {
+      showApiError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChangeUserInfo = async (newUserInfo) => {
+    setIsLoading(true);
+    try {
+      const updatedUser = await mainApi.changeUserInfo(newUserInfo);
+      setCurrentUser(updatedUser);
+      showInfoMessage(EDIT_PROFILE_SUCCESS_MSG);
+    } catch (err) {
+      setErrorAuthMessage(err.message || 'Произошла ошибка');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteButtonClick = async (movieId) => {
+    return mainApi.deleteMovie(movieId);
+  };
 
   return (
-    <div className='App'>
-      <Routes>
-        {/* Отображение маршрутов из массива */}
-        {routes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Routes>
-    </div>
+    <CurrentUserContext.Provider
+      value={{ currentUser, loggedIn, isLoading, setIsLoading }}
+    >
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/signup" element={<AuthRoute><Register onSignUp={handleSignUp} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage}/></AuthRoute>} />
+          <Route path="/signin" element={<AuthRoute><Login onSignIn={handleSignIn} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage}/></AuthRoute>} />
+          <Route path="/movies" element={<ProtectedRoute><Movies showError={showApiError} onDelete={handleDeleteButtonClick}/></ProtectedRoute>} />
+          <Route path="/saved-movies" element={<ProtectedRoute><SavedMovies showError={showApiError} onDelete={handleDeleteButtonClick}/></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile onSignOut={handleSignOut} onChangeUserInfo={handleChangeUserInfo} errorMessage={errorAuthMessage} setErrorAuthMessage={setErrorAuthMessage}/></ProtectedRoute>} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        <ErrorMessage errorMessage={errorApiMessage} />
+        <InfoPopup infoMessage={infoMessage} />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

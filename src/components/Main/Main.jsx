@@ -1,7 +1,6 @@
 // Импорт компонентов шапки и подвала
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-
 // Импорт основных компонентов страницы
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';

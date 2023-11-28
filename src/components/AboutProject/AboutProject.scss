@@ -1,48 +1,48 @@
 .about-project {
-  padding: 110px 0;
   background-color: #202020;
   color: #fff;
+  padding: 110px 0;
 
   &__text-container {
-    margin-top: 70px;
     display: flex;
     gap: 55px;
+    margin-top: 70px;
     text-align: left;
   }
 
   &__text-block {
     margin-bottom: 111px;
   }
-
-  &__text-heading {
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: -0.8px;
-  }
-
+  
   &__text-message {
-    margin: 26px 0 0;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    margin: 26px 0 0;
   }
 
-  &__timeline {
+  &__text-heading {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.8px;
     margin: 0;
     padding: 0;
+  }
+  
+
+  &__timeline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     max-width: 100%;
     list-style: none;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
   }
 
   &__timeline-one {
-    margin-bottom: 14px;
-    min-height: 36px;
     flex-basis: 20%;
+    min-height: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,36 +50,37 @@
     color: #000;
     font-size: 14px;
     font-weight: 400;
+    margin-bottom: 14px;
   }
 
   &__timeline-four {
-    margin-bottom: 14px;
+    flex-basis: 80%;
+    min-height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-basis: 80%;
-    min-height: 36px;
     background-color: #303030;
     font-size: 14px;
     font-weight: 400;
-    min-height: 35px;
+    margin-bottom: 14px;
   }
 
-  &__timeline-one-caption {
+  &__timeline-four-caption {
+    flex-basis: 80%;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
     color: #8b8b8b;
+  }
+  
+  &__timeline-one-caption {
     flex-basis: 20%;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
+    color: #8b8b8b;
   }
 
-  &__timeline-four-caption {
-    color: #8b8b8b;
-    flex-basis: 80%;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-  }
 
   @media screen and (max-width: 1200px) {
     padding: 90px 0;
@@ -89,9 +90,9 @@
     }
 
     &__text-message {
-      margin: 21px 0 0;
       font-size: 12px;
       line-height: 18px;
+      margin: 21px 0 0;
     }
 
     &__text-container {
@@ -109,17 +110,17 @@
     }
 
     &__text-heading {
-      width: auto;
-      margin: 0 4px 16px;
       font-size: 18px;
       letter-spacing: -0.72px;
+      margin: 0 4px 16px;
+      width: auto;
     }
 
     &__text-message {
-      width: auto;
-      margin: 0 4px;
       font-size: 11px;
       line-height: 16px;
+      margin: 0 4px;
+      width: auto;
     }
 
     &__text-block {
@@ -132,8 +133,8 @@
 
     &__timeline {
       margin: 0 4px;
-      width: auto;
       row-gap: 6px;
+      width: auto;
     }
 
     &__timeline-one {

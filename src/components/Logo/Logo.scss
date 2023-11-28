@@ -1,16 +1,17 @@
 .logo {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   display: inline-block;
-  height: 38px;
   width: 38px;
+  height: 38px;
   background-image: url('../../images/logo.svg');
   background-size: 38px;
   background-repeat: no-repeat;
   background-position: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   transition: opacity 0.3s ease-in-out;
 
+  /* При наведении курсора на логотип, уменьшаем немного прозрачность */
   &:hover {
     opacity: 0.8;
   }

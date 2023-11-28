@@ -1,45 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.scss';
 
-function MoviesCardList({ movieData }) {
-  const [isLoading, setIsLoading] = useState(true);
+function MoviesCardList({ movies, searchError, isLoading, noResults, onSave, onDelete }) {
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+  const renderLoading = () => isLoading && <Preloader />;
+  const renderSearchError = () => searchError && <p className='movies__search-error'>Нужно ввести ключевое слово</p>;
+  const renderNoResults = () => noResults && !searchError && <p className='movies__not-found'>Ничего не найдено </p>;
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  const location = useLocation();
-  const isOnMoviesPage = location.pathname === '/movies';
+  const MoviesListDisplay = () => {
+    if (!isLoading && !searchError && !noResults) {
+      return (
+        <ul className='movies__list'>
+          {movies.map((movie) => (
+            <MoviesCard 
+              key={movie.id || movie.movieId} 
+              movie={movie} 
+              onSave={onSave} 
+              onDelete={onDelete} 
+            />
+          ))}
+        </ul>
+      );
+    }
+    return null;
+  };
+  
 
   return (
-    <section className='movies' aria-label='Карточки фильмов'>
-      <div className='movies__container'>
-        {isLoading ? (
-          <Preloader />
-        ) : (
-          <>
-            <ul className='movies__list'>
-              {movieData.map((movie) => (
-                <MoviesCard key={movie.id} movie={movie} />
-              ))}
-            </ul>
-            {isOnMoviesPage && (
-              <button className='button movies__button-more' aria-label='Ещё фильмы'>
-                Ещё
-              </button>
-            )}
-          </>
-        )}
-      </div>
-    </section>
+    <div className='movies__container'>
+      {renderLoading()}
+      {renderSearchError()}
+      {renderNoResults()}
+      {MoviesListDisplay()}
+    </div>
   );
 }
 

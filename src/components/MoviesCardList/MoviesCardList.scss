@@ -4,6 +4,7 @@
   &__container {
     margin: 0 auto;
     max-width: 1140px;
+    min-height: calc(100vh - 350px);
   }
 
   &__list {
@@ -28,17 +29,25 @@
     width: 320px;
   }
 
+  &__search-error {
+    color: #ff004d;
+  }
+
+  &__not-found {
+    color: #fff;
+  }
+
   @media screen and (max-width: 1200px) {
     margin-top: 126px;
+
+    &__container {
+      max-width: calc(100vw - 60px);
+    }
 
     &__list {
       grid-template-columns: repeat(3, 1fr);
       column-gap: 30px;
       row-gap: 36px;
-    }
-
-    &__container {
-      max-width: calc(100vw - 60px);
     }
   }
 
@@ -49,6 +58,12 @@
   }
 
   @media screen and (max-width: 600px) {
+    margin-top: 88px;
+
+    &__container {
+      max-width: calc(100vw - 80px);
+    }
+
     &__list {
       grid-template-columns: 1fr;
       row-gap: 20px;
@@ -56,12 +71,6 @@
 
     &__button-more {
       max-width: 240px;
-    }
-
-    margin-top: 88px;
-
-    &__container {
-      max-width: calc(100vw - 80px);
     }
   }
 
