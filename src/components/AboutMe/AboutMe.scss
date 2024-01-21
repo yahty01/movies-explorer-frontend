@@ -1,59 +1,17 @@
-@import url('../../vendor/fonts/fonts.css');
-
-:root {
-  --font-size-name: 50px;
-  --font-size-occupation: 18px;
-  --font-size-description: 14px;
-  --font-size-github: 14px;
-}
-
 .about-me {
-  padding: 110px 0 100px;
-  color: #fff;
   background-color: #202020;
+  color: #fff;
+  padding: 110px 0 100px;
 
   &__personal-container {
-    margin-top: 66px;
     display: flex;
     justify-content: space-between;
+    margin-top: 66px;
   }
 
   &__personal-info {
     max-width: 600px;
     text-align: left;
-  }
-
-  &__personal-name {
-    margin: 0;
-    padding: 0;
-    font-size: var(--font-size-name);
-    font-weight: 400;
-    line-height: 58px;
-    letter-spacing: -2px;
-  }
-
-  &__personal-occupation {
-    margin: 18px 0 0;
-    padding: 0;
-    font-size: var(--font-size-occupation);
-    font-weight: 500;
-    line-height: 20px;
-  }
-
-  &__personal-description {
-    margin: 26px 0 0;
-    padding: 0;
-    font-size: var(--font-size-description);
-    font-weight: 400;
-    line-height: 22px;
-  }
-
-  &__personal-link {
-    margin-top: 99px;
-    display: block;
-    color: #fff;
-    font-size: var(--font-size-github);
-    font-weight: 500;
   }
 
   &__personal-photo {
@@ -62,6 +20,39 @@
     display: block;
     border-radius: 10px;
     object-fit: cover;
+  }
+
+  &__personal-name {
+    font-size: var(--font-size-name);
+    line-height: 58px;
+    letter-spacing: -2px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__personal-occupation {
+    font-size: var(--font-size-occupation);
+    font-weight: 500;
+    line-height: 20px;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+
+  &__personal-description {
+    font-size: var(--font-size-description);
+    font-weight: 400;
+    line-height: 22px;
+    margin: 26px 0 0;
+    padding: 0;
+  }
+
+  &__personal-link {
+    color: #fff;
+    font-size: var(--font-size-github);
+    font-weight: 500;
+    display: block;
+    margin-top: 99px;
   }
 
   @media screen and (max-width: 1200px) {
@@ -78,18 +69,18 @@
     }
 
     &__personal-occupation {
-      margin-top: 16px;
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
+      margin-top: 16px;
     }
 
     &__personal-description {
-      margin-top: 20px;
-      max-width: 364px;
       font-size: 12px;
       font-weight: 400;
       line-height: 18px;
+      margin-top: 20px;
+      max-width: 364px;
     }
 
     &__personal-photo {
@@ -129,12 +120,21 @@
     }
 
     &__personal-description {
-      margin-top: 18px;
       font-size: 11px;
+      margin-top: 18px;
     }
 
     &__personal-link {
       margin-top: 40px;
     }
   }
+}
+
+@import url('../../vendor/fonts/fonts.css');
+
+:root {
+  --font-size-name: 50px;
+  --font-size-occupation: 18px;
+  --font-size-description: 14px;
+  --font-size-github: 14px;
 }

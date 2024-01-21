@@ -28,7 +28,7 @@ function Promo() {
             </a>
           </div>
           <div className='promo__column'>
-            <img className='promo__image' src={PromoImage} alt='Всемирная паутина' />
+            <img className='promo__image' src={PromoImage} alt='Интернет Паутина' />
           </div>
         </div>
       </Container>

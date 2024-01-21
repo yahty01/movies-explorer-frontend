@@ -1,21 +1,19 @@
-import { Outlet, useNavigate } from 'react-router-dom';
-import './NotFound.scss';
-
-function NotFound() {
-  const navigate = useNavigate(); // Используем хук useNavigate для перехода на другую страницу
+import { NavLink, useNavigate } from 'react-router-dom';
+import '../NotFound/NotFound.scss'
+export default function Page404() {
+  const navigate = useNavigate();
+  const handleClickComeBack = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  };
 
   return (
-    <>
-      <main className='notFound'>
-        <h1 className='notFound__heading'>404</h1>
-        <p className='notFound__message'>Страница не найдена</p>
-        <button className='notFound__link' onClick={() => navigate('/')}>
-          Назад
-        </button>
-      </main>
-      <Outlet /> {/* Размещаем компонент Outlet для отображения потомков */}
-    </>
+    <main className="notFound">
+      <h1 className="notFound__heading">404</h1>
+      <p className="notFound__message">Страница не найдена</p>
+      <NavLink to="#" className="button notFound__link" onClick={handleClickComeBack}>
+        Назад
+      </NavLink>
+    </main>
   );
 }
-
-export default NotFound;

@@ -1,28 +1,47 @@
 import './MoviesCard.scss';
 import { useLocation } from 'react-router-dom';
+import { MOVIES_API_URL } from '../../utils/constants';
+import { convertMins } from '../../utils/utils';
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, onSave, onDelete }) {
   const location = useLocation();
-  const { image, name, duration, isSaved } = movie;
-  const convertDuration = (number) => {
-    const hours = Math.floor(number / 60);
-    const minutes = number % 60;
-    return `${hours}ч ${minutes}м`;
-  };
-  const isSavedMoviesPage = location.pathname === '/saved-movies';
-  const saveButtonClass = `button movie-card__save-button ${isSaved ? 'active' : ''}`;
 
+  const handleSaveButtonClick = () => {
+    const action = movie.isSaved ? onDelete : onSave;
+    action(movie.isSaved ? movie._id : movie);
+  };
+  
+
+  const handleDeleteButtonClick = () => onDelete(movie._id);
+
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
   return (
     <li className='movie-card'>
-      <img src={image} className='movie-card__image' alt={name} />
+      <a href={`${movie.trailerLink}`} className='link' target='_blank' rel='noreferrer'>
+        <img
+          src={isSavedMoviesPage ? `${movie.image}` : `${MOVIES_API_URL}${movie.image.url}`}
+          className='movie-card__image'
+          alt={movie.nameRU}
+        />{' '}
+      </a>
       <div className='movie-card__info'>
-        <h2 className='movie-card__info__title'>{name}</h2>
+        <h2 className='movie-card__title'>{movie.nameRU}</h2>
         {isSavedMoviesPage ? (
-          <button type='button' className='button movie-card__delete-button' aria-label='Удалить карточку фильма'></button>
+          <button
+            type='button'
+            className='button movie-card__delete-button'
+            aria-label='Удалить карточку фильма'
+            onClick={handleDeleteButtonClick}
+          ></button>
         ) : (
-          <button type='button' className={saveButtonClass} aria-label='Сохранить карточку фильма'></button>
+          <button
+            type='button'
+            className={`button movie-card__save-button ${movie.isSaved ? 'movie-card__save-button_active' : ''}`}
+            aria-label='Сохранить карточку фильма'
+            onClick={handleSaveButtonClick}
+          ></button>
         )}
-        <p className='movie-card__duration'>{convertDuration(duration)}</p>
+        <p className='movie-card__duration'>{convertMins(movie.duration)}</p>
       </div>
     </li>
   );
